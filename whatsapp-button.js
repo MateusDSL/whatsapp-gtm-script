@@ -1,7 +1,7 @@
 // WhatsApp Button Script for GTM
 (function() {
     // --- CONFIGURAÇÕES --- (Altere estes valores)
-    const WHATSAPP_NUMBER = "5549988385377"; // Substitua pelo seu número do WhatsApp (somente números com código do país)
+    const WHATSAPP_NUMBER = "554930194949"; // Substitua pelo seu número do WhatsApp (somente números com código do país)
     const GOOGLE_SCRIPT_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxCfahnAV6rMhAyIhMXEchwkMAlcmtQGYQV_0F2Uyn2i9CCt8x0XytNm9Yu8m8YUv5YTw/exec"; // Substitua pela URL do seu Google Apps Script Web App
     const CSS_URL = "./whatsapp-button.css"; // URL para o arquivo CSS. Se hospedar em outro lugar, atualize aqui.
     const SHOW_DELAY_MS = 1000; // Delay em milissegundos para mostrar o botão
