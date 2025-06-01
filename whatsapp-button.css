@@ -1,317 +1,178 @@
-/* Estilos para o Botão Flutuante e Modal do WhatsApp (Otimizado para GTM) */
-
-/* Reset básico e variáveis */
-:root {
-    --whatsapp-green: #25D366;
-    --whatsapp-green-dark: #128C7E;
-    --whatsapp-bg-light: #ECE5DD;
-    --whatsapp-text-dark: #333;
-    --whatsapp-text-light: #fff;
-    --whatsapp-border-color: #ccc;
-    --whatsapp-input-bg: #fff;
-    --whatsapp-error-bg: #fdecea;
-    --whatsapp-error-text: #a94442;
-    --whatsapp-success-bg: #dff0d8;
-    --whatsapp-success-text: #3c763d;
-    --whatsapp-info-bg: #d9edf7;
-    --whatsapp-info-text: #31708f;
+/* Adicionando uma fonte sans-serif padrão para melhor visualização */
+.whatsapp-lead-capture-container.font-sans, .whatsapp-lead-capture-container .font-sans {
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
-#whatsapp-gtm-container * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+/* Estilos para o modal e animações */
+.spring-animation {
+  /* Efeito de mola mais suave e rápido */
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease-out;
+}
+.slide-in-start {
+  transform: translateX(100%) scale(0.95);
+  opacity: 0;
+}
+.slide-in-end {
+  transform: translateX(0) scale(1);
+  opacity: 1;
+}
+.slide-out {
+  transform: translateX(100%) scale(0.95);
+  opacity: 0;
+  transition: transform 0.3s cubic-bezier(0.76, 0, 0.24, 1), opacity 0.2s ease-in;
 }
 
-/* Container principal para evitar conflitos */
-#whatsapp-gtm-container {
-    position: relative;
-    z-index: 9999;
+/* Animações de entrada para o conteúdo do modal */
+.animate-fade-in-up-1 { animation: fadeInUp 0.5s ease-out 0.1s both; }
+.animate-fade-in-up-2 { animation: fadeInUp 0.5s ease-out 0.15s both; }
+.animate-fade-in-up-3 { animation: fadeInUp 0.5s ease-out 0.2s both; }
+.animate-fade-in-up-4 { animation: fadeInUp 0.5s ease-out 0.25s both; }
+.animate-fade-in-up-5 { animation: fadeInUp 0.5s ease-out 0.3s both; }
+.animate-fade-in-up-6 { animation: fadeInUp 0.5s ease-out 0.35s both; }
+
+/* Micro-interações e Hover Effects (traduzidos do style jsx) */
+.hover-lift { transition: all 0.3s ease; }
+.hover-lift:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+.hover-float { animation: float 2.5s ease-in-out infinite; } /* Botão flutuante principal */
+
+.message-circle-icon.hover-rotate { display: inline-block; transition: transform 0.3s ease; }
+button:hover .message-circle-icon.hover-rotate { transform: rotate(10deg) scale(1.1); }
+
+
+.hover-group:hover .hover-pulse { animation: pulseSimple 1.5s infinite cubic-bezier(0.4, 0, 0.6, 1); }
+.hover-bounce { display: inline-block; transition: transform 0.2s ease; }
+.hover-group:hover .hover-bounce { animation: bounceSoft 0.8s ease; }
+
+.hover-glow { transition: text-shadow 0.3s ease; }
+.hover-group:hover .hover-glow { text-shadow: 0 0 6px rgba(255, 255, 255, 0.5); }
+
+.hover-rotate-close { display: inline-block; transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.hover-rotate-close:hover { transform: rotate(90deg) scale(1.1); }
+.hover-rotate-close .hover-spin { display: inline-block; transition: transform 0.3s ease; }
+.hover-rotate-close:hover .hover-spin { transform: rotate(90deg); }
+
+.hover-lift-subtle { transition: transform 0.2s ease-out; }
+.hover-lift-subtle:hover { transform: translateY(-2px); }
+
+.hover-lift-subtle:hover .hover-color-shift { color: #128C7E; }
+.hover-color-shift { transition: color 0.2s ease; }
+
+.hover-lift-subtle:hover .hover-fade-in { opacity: 0.7; }
+.hover-fade-in { transition: opacity 0.3s ease; }
+
+.hover-field-group:hover .hover-label {
+  color: #25D366;
+  transform: translateX(1px);
+}
+.hover-field-group .hover-label { transition: color 0.2s ease, transform 0.2s ease; }
+
+.hover-field-group:hover .hover-icon-color { color: #25D366; }
+.hover-input-container .hover-icon-color { transition: color 0.2s ease; } /* Aplicado ao span do ícone */
+
+.hover-input-focus { transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+/* Para inputs padrão, você pode precisar estilizar o :focus diretamente no input */
+input.hover-input-focus:focus,
+.hover-field-group:hover input.hover-input-focus {
+  border-color: #25D366 !important; /* !important para sobrescrever defaults se necessário */
+  box-shadow: 0 0 0 2px rgba(37, 211, 102, 0.2) !important;
 }
 
-/* Botão Flutuante (FAB) */
-.whatsapp-fab {
-    position: fixed;
-    bottom: 24px;
-    right: 24px;
-    width: 56px;
-    height: 56px;
-    background: linear-gradient(to bottom right, #25D366, #128C7E);
-    color: var(--whatsapp-text-light);
-    border-radius: 50%;
-    border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    z-index: 1000;
-    opacity: 0;
-    transform: scale(0.8);
-    animation: whatsapp-fade-in 0.5s 1s forwards ease-out;
+.hover-button-premium { transition: transform 0.2s ease-out, box-shadow 0.2s ease-out, background-color 0.2s ease; }
+.hover-button-premium:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px rgba(37, 211, 102, 0.25);
+  /* background-color: #20BA5A; /* Já definido no JS para hover:bg-[#20BA5A] */
 }
 
-.whatsapp-fab:hover {
-    transform: scale(1.05);
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.08);
+.hover-button-premium:hover .hover-icon-wiggle { animation: wiggleSoft 0.4s ease-in-out; }
+.hover-icon-wiggle { display: inline-block; transition: transform 0.1s ease; }
+
+.hover-button-premium:hover .hover-text-glow { text-shadow: 0 0 5px rgba(255, 255, 255, 0.4); }
+.hover-text-glow { transition: text-shadow 0.3s ease; }
+
+.hover-info-section:hover .hover-info-text {
+  color: #128C7E;
+  transform: scale(1.01);
+}
+.hover-info-section .hover-info-text { transition: color 0.2s ease, transform 0.2s ease; }
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+@keyframes bounceSoft {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-4px) scale(1.05); }
+}
+@keyframes wiggleSoft {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-3deg); }
+  75% { transform: rotate(3deg); }
+}
+@keyframes pulseSimple {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
 }
 
-.whatsapp-fab svg {
-    width: 28px;
-    height: 28px;
+/* Animação de giro para o ícone de loader (SVG) */
+.animate-spin-manual {
+    animation: spin 1s linear infinite;
+}
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }
 
-/* Animação Fade-in */
-@keyframes whatsapp-fade-in {
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
+/* Classes de utilitários Tailwind que você pode precisar definir se não usar Tailwind no site principal.
+   Esta é uma lista NÃO EXAUSTIVA. Muitas classes como 'fixed', 'bottom-6', 'flex', 'items-center',
+   'text-white', 'rounded-full', 'shadow-lg', 'p-3', 'border-b', 'space-x-3', 'max-w-sm', etc.,
+   são do Tailwind.
+*/
+/* Exemplo de como algumas classes Tailwind se traduziriam:
+.fixed { position: fixed; }
+.bottom-6 { bottom: 1.5rem; }
+.right-6 { right: 1.5rem; }
+.z-\[99\] { z-index: 99; }
+.w-14 { width: 3.5rem; }
+.h-14 { height: 3.5rem; }
+.bg-\[\#25D366\] { background-color: #25D366; }
+.text-white { color: #ffffff; }
+.rounded-full { border-radius: 9999px; }
+.shadow-lg { box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05); }
+.p-3 { padding: 0.75rem; }
+.border-b { border-bottom-width: 1px; }
+.border-gray-200 { border-color: #e5e7eb; }
+.opacity-0 { opacity: 0; }
+.opacity-30 { opacity: 0.3; }
+.transition-opacity { transition-property: opacity; }
+.duration-300 { transition-duration: 300ms; }
+.font-semibold { font-weight: 600; }
+.text-lg { font-size: 1.125rem; }
+.pl-10 { padding-left: 2.5rem; }
+.h-10 { height: 2.5rem; }
+.w-full { width: 100%; }
+.rounded-md { border-radius: 0.375rem; }
+.border { border-width: 1px; }
+/* ... e muitas outras ... */
 
-/* Overlay do Modal */
-.whatsapp-modal-overlay {
-    position: fixed;
-    inset: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1001;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+/* Estilos para os inputs baseados nas classes do React (pode precisar de ajustes) */
+input[type="text"], input[type="email"], input[type="tel"] {
+    /* border-input bg-transparent ... */
+    /* Essas classes são muito genéricas e provavelmente viriam do Tailwind ou de um reset. */
+    /* Exemplo básico para input: */
+    /* border: 1px solid #ccc; */
+    /* background-color: transparent; */
+    /* padding: 0.5rem 0.75rem; */
+    /* font-size: 0.875rem; */
+    /* Para compatibilidade visual, idealmente o site já teria estilos base para formulários. */
 }
-
-.whatsapp-modal-overlay.open {
-    opacity: 1;
-    visibility: visible;
-}
-
-/* Conteúdo do Modal */
-.whatsapp-modal-content {
-    background-color: var(--whatsapp-input-bg);
-    padding: 24px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 90%;
-    max-width: 425px;
-    transform: scale(0.95);
-    transition: transform 0.3s ease;
-}
-
-.whatsapp-modal-overlay.open .whatsapp-modal-content {
-    transform: scale(1);
-}
-
-/* Cabeçalho do Modal */
-.whatsapp-modal-header {
-    margin-bottom: 16px;
-    padding-bottom: 16px;
-    border-bottom: 1px solid #e5e7eb; /* Cor similar a border-gray-200 */
-    position: relative;
-}
-
-.whatsapp-modal-title {
-    font-size: 1.125rem; /* Similar a text-lg */
-    font-weight: 600; /* Similar a font-semibold */
-    color: var(--whatsapp-text-dark);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.whatsapp-modal-title svg {
-    width: 20px;
-    height: 20px;
-    color: var(--whatsapp-green);
-}
-
-.whatsapp-modal-description {
-    font-size: 0.875rem; /* Similar a text-sm */
-    color: #6b7280; /* Similar a text-gray-500 */
-    margin-top: 4px;
-}
-
-.whatsapp-modal-close-btn {
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    background: none;
-    border: none;
-    color: #9ca3af; /* Similar a text-gray-400 */
-    cursor: pointer;
-    padding: 4px;
-    border-radius: 50%;
-    transition: background-color 0.2s ease;
-}
-
-.whatsapp-modal-close-btn:hover {
-    background-color: #f3f4f6; /* Similar a bg-gray-100 */
-}
-
-.whatsapp-modal-close-btn svg {
-    width: 16px;
-    height: 16px;
-}
-
-/* Corpo do Modal (Formulário) */
-.whatsapp-modal-body {
-    padding-top: 16px;
-    padding-bottom: 16px;
-}
-
-.whatsapp-form-grid {
-    display: grid;
-    gap: 16px;
-}
-
-.whatsapp-form-group {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 8px;
-}
-
-/* Estilos responsivos para labels ao lado */
-@media (min-width: 640px) { /* sm: breakpoint */
-    .whatsapp-form-group {
-        grid-template-columns: 1fr 3fr;
-        align-items: center;
-        gap: 16px;
-    }
-    .whatsapp-form-label {
-        text-align: right;
-    }
-}
-
-.whatsapp-form-label {
-    font-size: 0.875rem;
-    font-weight: 500; /* Similar a font-medium */
-    color: var(--whatsapp-text-dark);
-}
-
-.whatsapp-input-wrapper {
-    position: relative;
-    width: 100%;
-}
-
-.whatsapp-input-icon {
-    position: absolute;
-    left: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 16px;
-    height: 16px;
-    color: #9ca3af; /* Similar a text-gray-400 */
-    pointer-events: none; /* Para não interferir no clique do input */
-}
-
-.whatsapp-input {
-    width: 100%;
-    padding: 10px 12px 10px 40px; /* Ajuste padding-left para o ícone */
-    border: 1px solid var(--whatsapp-border-color);
-    border-radius: 6px;
-    font-size: 0.875rem;
-    background-color: var(--whatsapp-input-bg);
-    color: var(--whatsapp-text-dark);
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.whatsapp-input:focus {
-    outline: none;
-    border-color: #3b82f6; /* Similar a ring-blue-500 */
-    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
-}
-
-.whatsapp-input::placeholder {
-    color: #9ca3af;
-}
-
-.whatsapp-input:disabled {
-    background-color: #f3f4f6; /* Similar a bg-gray-100 */
-    cursor: not-allowed;
-    opacity: 0.7;
-}
-
-/* Mensagem de Status */
-.whatsapp-status-message {
-    font-size: 0.875rem;
-    padding: 12px;
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    margin-top: 8px;
-}
-
-.whatsapp-status-success {
-    background-color: var(--whatsapp-success-bg);
-    color: var(--whatsapp-success-text);
-}
-
-.whatsapp-status-error {
-    background-color: var(--whatsapp-error-bg);
-    color: var(--whatsapp-error-text);
-}
-
-.whatsapp-status-info {
-    background-color: var(--whatsapp-info-bg);
-    color: var(--whatsapp-info-text);
-}
-
-/* Rodapé do Modal */
-.whatsapp-modal-footer {
-    margin-top: 24px;
-    padding-top: 16px;
-    border-top: 1px solid #e5e7eb;
-    display: flex;
-    justify-content: flex-end;
-}
-
-.whatsapp-submit-btn {
-    background-color: #16a34a; /* Similar a bg-green-600 */
-    color: var(--whatsapp-text-light);
-    border: none;
-    border-radius: 6px;
-    padding: 10px 16px;
-    font-size: 0.875rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.whatsapp-submit-btn:hover {
-    background-color: #15803d; /* Similar a bg-green-700 */
-}
-
-.whatsapp-submit-btn:disabled {
-    background-color: #a3a3a3; /* Cinza para desabilitado */
-    cursor: not-allowed;
-    opacity: 0.7;
-}
-
-.whatsapp-submit-btn svg {
-    width: 16px;
-    height: 16px;
-}
-
-/* Animação de Spinner */
-.whatsapp-spinner {
-    animation: whatsapp-spin 1s linear infinite;
-}
-
-@keyframes whatsapp-spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
-}
-
+/* As classes como 'border-input', 'bg-transparent', 'placeholder:text-muted-foreground', etc.,
+   são altamente dependentes de um sistema de design como Tailwind. Sem ele, os inputs
+   terão aparência padrão do navegador ou do CSS base do seu site. */
