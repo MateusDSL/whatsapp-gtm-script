@@ -1,5 +1,5 @@
 // --- INÍCIO DAS CONFIGURAÇÕES ---
-const WHATSAPP_NUMBER = "5549988385377"; // Substitua pelo seu número do WhatsApp
+const WHATSAPP_NUMBER = "554930194949; // Substitua pelo seu número do WhatsApp
 const GOOGLE_SCRIPT_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxCfahnAV6rMhAyIhMXEchwkMAlcmtQGYQV_0F2Uyn2i9CCt8x0XytNm9Yu8m8YUv5YTw/exec"; // URL do seu Google Apps Script
 const CSS_URL = "https://mateusdsl.github.io/whatsapp-gtm-script/whatsapp-button.css"; // IMPORTANTE: Atualize esta URL no Passo 3 do tutorial do GitHub Pages
 // --- FIM DAS CONFIGURAÇÕES ---
