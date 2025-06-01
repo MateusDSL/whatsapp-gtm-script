@@ -1,11 +1,11 @@
 /* Adicionando uma fonte sans-serif padrão para melhor visualização */
-.whatsapp-lead-capture-container.font-sans, .whatsapp-lead-capture-container .font-sans {
+.whatsapp-lead-capture-container.font-sans, .whatsapp-lead-capture-container .font-sans,
+.whatsapp-lead-capture-container /* Aplicando a fonte a todos os filhos */ {
   font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
-/* Estilos para o modal e animações */
+/* Estilos para o modal e animações (do <style jsx> original) */
 .spring-animation {
-  /* Efeito de mola mais suave e rápido */
   transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease-out;
 }
 .slide-in-start {
@@ -30,17 +30,15 @@
 .animate-fade-in-up-5 { animation: fadeInUp 0.5s ease-out 0.3s both; }
 .animate-fade-in-up-6 { animation: fadeInUp 0.5s ease-out 0.35s both; }
 
-/* Micro-interações e Hover Effects (traduzidos do style jsx) */
+/* Micro-interações e Hover Effects (do <style jsx> original) */
 .hover-lift { transition: all 0.3s ease; }
 .hover-lift:hover {
   transform: translateY(-5px);
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
-.hover-float { animation: float 2.5s ease-in-out infinite; } /* Botão flutuante principal */
-
+.hover-float { animation: float 2.5s ease-in-out infinite; }
 .message-circle-icon.hover-rotate { display: inline-block; transition: transform 0.3s ease; }
 button:hover .message-circle-icon.hover-rotate { transform: rotate(10deg) scale(1.1); }
-
 
 .hover-group:hover .hover-pulse { animation: pulseSimple 1.5s infinite cubic-bezier(0.4, 0, 0.6, 1); }
 .hover-bounce { display: inline-block; transition: transform 0.2s ease; }
@@ -63,20 +61,16 @@ button:hover .message-circle-icon.hover-rotate { transform: rotate(10deg) scale(
 .hover-lift-subtle:hover .hover-fade-in { opacity: 0.7; }
 .hover-fade-in { transition: opacity 0.3s ease; }
 
-.hover-field-group:hover .hover-label {
-  color: #25D366;
-  transform: translateX(1px);
-}
+.hover-field-group:hover .hover-label { color: #25D366; transform: translateX(1px); }
 .hover-field-group .hover-label { transition: color 0.2s ease, transform 0.2s ease; }
 
-.hover-field-group:hover .hover-icon-color { color: #25D366; }
-.hover-input-container .hover-icon-color { transition: color 0.2s ease; } /* Aplicado ao span do ícone */
+.hover-field-group:hover .hover-icon-color svg { color: #25D366; } /* Aplicado ao SVG dentro do span */
+.hover-input-container .hover-icon-color svg { transition: color 0.2s ease; }
 
 .hover-input-focus { transition: border-color 0.2s ease, box-shadow 0.2s ease; }
-/* Para inputs padrão, você pode precisar estilizar o :focus diretamente no input */
 input.hover-input-focus:focus,
 .hover-field-group:hover input.hover-input-focus {
-  border-color: #25D366 !important; /* !important para sobrescrever defaults se necessário */
+  border-color: #25D366 !important;
   box-shadow: 0 0 0 2px rgba(37, 211, 102, 0.2) !important;
 }
 
@@ -84,7 +78,7 @@ input.hover-input-focus:focus,
 .hover-button-premium:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 15px rgba(37, 211, 102, 0.25);
-  /* background-color: #20BA5A; /* Já definido no JS para hover:bg-[#20BA5A] */
+  /* background-color: #20BA5A; -- esta é uma classe de hover, veja abaixo */
 }
 
 .hover-button-premium:hover .hover-icon-wiggle { animation: wiggleSoft 0.4s ease-in-out; }
@@ -93,12 +87,10 @@ input.hover-input-focus:focus,
 .hover-button-premium:hover .hover-text-glow { text-shadow: 0 0 5px rgba(255, 255, 255, 0.4); }
 .hover-text-glow { transition: text-shadow 0.3s ease; }
 
-.hover-info-section:hover .hover-info-text {
-  color: #128C7E;
-  transform: scale(1.01);
-}
+.hover-info-section:hover .hover-info-text { color: #128C7E; transform: scale(1.01); }
 .hover-info-section .hover-info-text { transition: color 0.2s ease, transform 0.2s ease; }
 
+/* --- Keyframes para Animações --- */
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(15px); }
   to { opacity: 1; transform: translateY(0); }
@@ -120,59 +112,166 @@ input.hover-input-focus:focus,
   0%, 100% { transform: scale(1); }
   50% { transform: scale(1.1); }
 }
+.animate-pulse { animation: pulseSimple 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; } /* Recriando animate-pulse do Tailwind */
 
-/* Animação de giro para o ícone de loader (SVG) */
-.animate-spin-manual {
-    animation: spin 1s linear infinite;
-}
+.animate-spin-manual { animation: spin 1s linear infinite; }
 @keyframes spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
-/* Classes de utilitários Tailwind que você pode precisar definir se não usar Tailwind no site principal.
-   Esta é uma lista NÃO EXAUSTIVA. Muitas classes como 'fixed', 'bottom-6', 'flex', 'items-center',
-   'text-white', 'rounded-full', 'shadow-lg', 'p-3', 'border-b', 'space-x-3', 'max-w-sm', etc.,
-   são do Tailwind.
-*/
-/* Exemplo de como algumas classes Tailwind se traduziriam:
+/* ===== INÍCIO DAS DEFINIÇÕES DE CLASSES DE UTILITÁRIOS (Tradução de Tailwind-like) ===== */
+
+/* --- Layout --- */
 .fixed { position: fixed; }
-.bottom-6 { bottom: 1.5rem; }
-.right-6 { right: 1.5rem; }
+.absolute { position: absolute; }
+.relative { position: relative; }
+.inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
+.bottom-0 { bottom: 0; }
+.bottom-6 { bottom: 1.5rem; } /* 24px */
+.right-0 { right: 0; }
+.right-6 { right: 1.5rem; } /* 24px */
+.left-3 { left: 0.75rem; } /* 12px */
+.top-1\/2 { top: 50%; }
 .z-\[99\] { z-index: 99; }
-.w-14 { width: 3.5rem; }
-.h-14 { height: 3.5rem; }
-.bg-\[\#25D366\] { background-color: #25D366; }
-.text-white { color: #ffffff; }
-.rounded-full { border-radius: 9999px; }
-.shadow-lg { box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05); }
-.p-3 { padding: 0.75rem; }
-.border-b { border-bottom-width: 1px; }
-.border-gray-200 { border-color: #e5e7eb; }
-.opacity-0 { opacity: 0; }
-.opacity-30 { opacity: 0.3; }
-.transition-opacity { transition-property: opacity; }
-.duration-300 { transition-duration: 300ms; }
-.font-semibold { font-weight: 600; }
-.text-lg { font-size: 1.125rem; }
-.pl-10 { padding-left: 2.5rem; }
-.h-10 { height: 2.5rem; }
-.w-full { width: 100%; }
-.rounded-md { border-radius: 0.375rem; }
-.border { border-width: 1px; }
-/* ... e muitas outras ... */
+.z-\[100\] { z-index: 100; }
 
-/* Estilos para os inputs baseados nas classes do React (pode precisar de ajustes) */
-input[type="text"], input[type="email"], input[type="tel"] {
-    /* border-input bg-transparent ... */
-    /* Essas classes são muito genéricas e provavelmente viriam do Tailwind ou de um reset. */
-    /* Exemplo básico para input: */
-    /* border: 1px solid #ccc; */
-    /* background-color: transparent; */
-    /* padding: 0.5rem 0.75rem; */
-    /* font-size: 0.875rem; */
-    /* Para compatibilidade visual, idealmente o site já teria estilos base para formulários. */
+/* --- Display & Flexbox --- */
+.flex { display: flex; }
+.inline-flex { display: inline-flex; }
+.items-center { align-items: center; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+
+/* --- Sizing --- */
+.w-full { width: 100%; }
+.w-14 { width: 3.5rem; } /* 56px */
+.w-8 { width: 2rem; } /* 32px */
+.w-6 { width: 1.5rem; } /* 24px */
+.w-4 { width: 1rem; } /* 16px */
+.h-auto { height: auto; }
+.h-14 { height: 3.5rem; } /* 56px */
+.h-10 { height: 2.5rem; } /* 40px */
+.h-8 { height: 2rem; } /* 32px */
+.h-6 { height: 1.5rem; } /* 24px */
+.h-4 { height: 1rem; } /* 16px */
+.max-w-sm { max-width: 24rem; } /* 384px */
+
+/* --- Spacing (Padding & Margin) --- */
+.p-0 { padding: 0; }
+.p-2 { padding: 0.5rem; } /* 8px */
+.p-3 { padding: 0.75rem; } /* 12px */
+.pt-1 { padding-top: 0.25rem; } /* 4px */
+.pt-3 { padding-top: 0.75rem; } /* 12px */
+.px-3 { padding-left: 0.75rem; padding-right: 0.75rem; }
+.py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+.py-2\.5 { padding-top: 0.625rem; padding-bottom: 0.625rem; } /* 10px */
+.pl-10 { padding-left: 2.5rem; } /* 40px */
+.mb-1 { margin-bottom: 0.25rem; } /* 4px */
+.mb-3 { margin-bottom: 0.75rem; } /* 12px */
+.mb-4 { margin-bottom: 1rem; } /* 16px */
+.mr-2 { margin-right: 0.5rem; } /* 8px */
+.mt-3 { margin-top: 0.75rem; } /* 12px */
+.space-x-3 > * + * { margin-left: 0.75rem; }
+.space-y-1 > * + * { margin-top: 0.25rem; }
+.space-y-3 > * + * { margin-top: 0.75rem; }
+
+/* --- Typography --- */
+.text-xs { font-size: 0.75rem; line-height: 1rem; } /* 12px */
+.text-sm { font-size: 0.875rem; line-height: 1.25rem; } /* 14px */
+.text-base { font-size: 1rem; line-height: 1.5rem; } /* 16px */
+.text-lg { font-size: 1.125rem; line-height: 1.75rem; } /* 18px */
+.font-medium { font-weight: 500; }
+.font-semibold { font-weight: 600; }
+.text-white { color: #ffffff; }
+.text-gray-400 { color: #9ca3af; }
+.text-gray-500 { color: #6b7280; }
+.text-gray-600 { color: #4b5563; }
+.text-gray-700 { color: #374151; }
+.text-gray-900 { color: #111827; }
+.text-blue-700 { color: #1d4ed8; }
+.text-green-700 { color: #047857; }
+.text-red-700 { color: #b91c1c; }
+.text-center { text-align: center; }
+.placeholder\:text-muted-foreground::placeholder { color: #6b7280; } /* Assumindo muted-foreground = gray-500 */
+
+/* --- Backgrounds --- */
+.bg-black { background-color: #000000; }
+.bg-white { background-color: #ffffff; }
+.bg-transparent { background-color: transparent; }
+.bg-\[\#25D366\] { background-color: #25D366; }
+.hover\:bg-\[\#20BA5A\]:hover { background-color: #20BA5A; }
+.bg-opacity-20 { background-color: rgba(255, 255, 255, 0.2); } /* Ex: white com 20% opacidade */
+.bg-blue-100 { background-color: #dbeafe; }
+.bg-green-100 { background-color: #d1fae5; }
+.bg-red-100 { background-color: #fee2e2; }
+
+/* --- Borders --- */
+.border { border-width: 1px; }
+.border-b { border-bottom-width: 1px; }
+.border-t { border-top-width: 1px; }
+.border-input { border-color: #d1d5db; } /* Default border color for inputs, adjust if needed */
+.border-gray-100 { border-color: #f3f4f6; }
+.border-gray-200 { border-color: #e5e7eb; }
+.border-blue-200 { border-color: #bfdbfe; }
+.border-green-200 { border-color: #a7f3d0; }
+.border-red-200 { border-color: #fecaca; }
+.rounded-md { border-radius: 0.375rem; } /* 6px */
+.rounded-lg { border-radius: 0.5rem; } /* 8px */
+.rounded-full { border-radius: 9999px; }
+.rounded-tl-3xl { border-top-left-radius: 1.5rem; } /* 24px */
+.rounded-bl-3xl { border-bottom-left-radius: 1.5rem; } /* 24px */
+
+/* --- Effects (Shadows, Opacity) --- */
+.shadow-lg { box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05); }
+.hover\:shadow-xl:hover { box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04); }
+.shadow-2xl { box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); }
+.opacity-0 { opacity: 0; }
+.opacity-30 { opacity: 0.3; } /* Usado no overlay do modal */
+.disabled\:opacity-50:disabled { opacity: 0.5; }
+
+/* --- Transitions & Transforms --- */
+.transition-all { transition-property: all; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms; } /* Default Tailwind duration */
+.transition-opacity { transition-property: opacity; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms; }
+.transition-colors { transition-property: color, background-color, border-color, text-decoration-color, fill, stroke; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms;}
+.duration-200 { transition-duration: 200ms; }
+.duration-300 { transition-duration: 300ms; }
+.duration-500 { transition-duration: 500ms; }
+.transform { 
+    transform: translateX(var(--tw-translate-x, 0)) translateY(var(--tw-translate-y, 0)) rotate(var(--tw-rotate, 0)) skewX(var(--tw-skew-x, 0)) skewY(var(--tw-skew-y, 0)) scaleX(var(--tw-scale-x, 1)) scaleY(var(--tw-scale-y, 1));
+} /* Base para transforms */
+.-translate-y-1\/2 { --tw-translate-y: -50%; transform: translateX(var(--tw-translate-x, 0)) translateY(var(--tw-translate-y, 0)) rotate(var(--tw-rotate, 0)) skewX(var(--tw-skew-x, 0)) skewY(var(--tw-skew-y, 0)) scaleX(var(--tw-scale-x, 1)) scaleY(var(--tw-scale-y, 1)); }
+.translate-y-4 { --tw-translate-y: 1rem; transform: translateX(var(--tw-translate-x, 0)) translateY(var(--tw-translate-y, 0)) rotate(var(--tw-rotate, 0)) skewX(var(--tw-skew-x, 0)) skewY(var(--tw-skew-y, 0)) scaleX(var(--tw-scale-x, 1)) scaleY(var(--tw-scale-y, 1)); }
+.hover\:scale-110:hover { --tw-scale-x: 1.1; --tw-scale-y: 1.1; transform: translateX(var(--tw-translate-x, 0)) translateY(var(--tw-translate-y, 0)) rotate(var(--tw-rotate, 0)) skewX(var(--tw-skew-x, 0)) skewY(var(--tw-skew-y, 0)) scaleX(var(--tw-scale-x, 1)) scaleY(var(--tw-scale-y, 1)); }
+
+/* --- Interactivity --- */
+.disabled\:cursor-not-allowed:disabled { cursor: not-allowed; }
+
+/* --- Focus Ring & Outline (Simplificado) --- */
+/* As classes focus-visible: do Tailwind são complexas e geralmente usam box-shadow para anéis. */
+/* Esta é uma simplificação. Para anéis fiéis, seria necessário mais CSS. */
+.focus-visible\:outline-none:focus-visible { outline: 2px solid transparent; outline-offset: 2px; }
+/* Classes como ring-offset-background, focus-visible:ring-2, focus-visible:ring-ring, focus-visible:ring-offset-2
+   são parte de um sistema de anel de foco mais robusto do Tailwind. Implementá-las fielmente aqui
+   seria extenso. O ::focus-visible acima é um fallback básico. */
+.ring-offset-background {} /* Normalmente define uma variável CSS para a cor do offset */
+
+/* --- File Input Styling Resets (from Tailwind) --- */
+.file\:border-0::-webkit-file-upload-button { border: 0; }
+.file\:border-0::file-selector-button { border: 0; }
+.file\:bg-transparent::-webkit-file-upload-button { background-color: transparent; }
+.file\:bg-transparent::file-selector-button { background-color: transparent; }
+.file\:text-sm::-webkit-file-upload-button { font-size: 0.875rem; }
+.file\:text-sm::file-selector-button { font-size: 0.875rem; }
+.file\:font-medium::-webkit-file-upload-button { font-weight: 500; }
+.file\:font-medium::file-selector-button { font-weight: 500; }
+
+
+/* --- Responsive --- */
+@media (min-width: 768px) { /* Corresponde ao prefixo 'md:' do Tailwind */
+  .md\:rounded-bl-none {
+    border-bottom-left-radius: 0;
+  }
 }
-/* As classes como 'border-input', 'bg-transparent', 'placeholder:text-muted-foreground', etc.,
-   são altamente dependentes de um sistema de design como Tailwind. Sem ele, os inputs
-   terão aparência padrão do navegador ou do CSS base do seu site. */
+
+/* ===== FIM DAS DEFINIÇÕES DE CLASSES DE UTILITÁRIOS ===== */
