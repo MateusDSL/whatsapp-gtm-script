@@ -2,7 +2,7 @@
 (function() {
     // --- CONFIGURAÇÕES --- (Altere estes valores)
     const GOOGLE_SCRIPT_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxCfahnAV6rMhAyIhMXEchwkMAlcmtQGYQV_0F2Uyn2i9CCt8x0XytNm9Yu8m8YUv5YTw/exec"; // Substitua pela URL do seu Google Apps Script Web App
-    const CSS_URL = "https://mateusdsl.github.io/whatsapp-gtm-script/whatsapp-button.css"; // URL para o arquivo CSS. Se hospedar em outro lugar, atualize aqui.
+    const CSS_URL = "https://mateusdsl.github.io/whatsap-gtm-script/whatsapp-button.css"; // URL para o arquivo CSS. Se hospedar em outro lugar, atualize aqui.
     const SHOW_DELAY_MS = 1000; // Delay em milissegundos para mostrar o botão
     // --- FIM DAS CONFIGURAÇÕES ---
 
@@ -200,10 +200,10 @@
             const message = `Olá! Meu nome é ${formData.name}. Gostaria de mais informações.\n\n📱 Telefone: ${formData.phone}\n\n(Ref: ${formData.gclid ? `GCLID ${formData.gclid}` : ''} ${formData.utm_source ? `Source ${formData.utm_source}` : ''}) \n\nAguardo seu contato!`;
             const whatsappUrl = "https://tintim.link/whatsapp/826e2a65-3402-47a3-9dae-9e6a55f5ddb5/0ad8dba1-d477-46fe-b8df-ab703e0415a2";
 
+            window.open(whatsappUrl, "_blank");
             setTimeout(() => {
                 resetForm();
                 closeModal();
-                window.open(whatsappUrl, "_blank");
             }, 1500);
 
         } catch (error) {
