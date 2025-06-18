@@ -1,6 +1,7 @@
 // WhatsApp Button Script - Versão Atualizada para GTM
 (function() {
     // --- CONFIGURAÇÕES --- (Altere estes valores)
+    const GOOGLE_SCRIPT_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxCfahnAV6rMhAyIhMXEchwkMAlcmtQGYQV_0F2Uyn2i9CCt8x0XytNm9Yu8m8YUv5YTw/exec"; // Substitua pela URL do seu Google Apps Script Web App
     const CSS_URL = "https://mateusdsl.github.io/whatsapp-gtm-script/whatsapp-button.css"; // URL para o arquivo CSS. Se hospedar em outro lugar, atualize aqui.
     const SHOW_DELAY_MS = 1000; // Delay em milissegundos para mostrar o botão
     // --- FIM DAS CONFIGURAÇÕES ---
@@ -43,11 +44,11 @@
     function setStatus(message, type) {
         statusMessage = message;
         submitStatus = type;
-        const statusEl = document.getElementById('whatsapp-status-message');
+        const statusEl = document.getElementById("whatsapp-status-message");
         if (statusEl) {
             statusEl.textContent = message;
-            statusEl.className = `whatsapp-status-message whatsapp-status-${type || 'info'}`;
-            statusEl.style.display = message ? 'block' : 'none';
+            statusEl.className = `whatsapp-status-message whatsapp-status-${type || "info"}`;
+            statusEl.style.display = message ? "block" : "none";
         }
     }
 
@@ -68,19 +69,19 @@
         submitStatus = null;
         statusMessage = "";
         
-        const nameInput = document.getElementById('whatsapp-name');
-        const phoneInput = document.getElementById('whatsapp-phone');
-        const statusEl = document.getElementById('whatsapp-status-message');
-        const submitBtn = document.getElementById('whatsapp-submit-btn');
+        const nameInput = document.getElementById("whatsapp-name");
+        const phoneInput = document.getElementById("whatsapp-phone");
+        const statusEl = document.getElementById("whatsapp-status-message");
+        const submitBtn = document.getElementById("whatsapp-submit-btn");
         
         if (nameInput) nameInput.value = "";
         if (phoneInput) phoneInput.value = "";
-        if (statusEl) statusEl.style.display = 'none';
+        if (statusEl) statusEl.style.display = "none";
         if (submitBtn) {
             submitBtn.disabled = false;
             submitBtn.innerHTML = `
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/>
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.465 3.085"/>
                 </svg>
                 Iniciar Conversa
             `;
@@ -92,16 +93,16 @@
         isClosing = true;
         showContent = false;
         
-        const overlay = document.getElementById('whatsapp-modal-overlay');
-        const panel = document.getElementById('whatsapp-modal-panel');
+        const overlay = document.getElementById("whatsapp-modal-overlay");
+        const panel = document.getElementById("whatsapp-modal-panel");
         
-        if (overlay) overlay.style.opacity = '0';
-        if (panel) panel.classList.add('whatsapp-slide-out');
+        if (overlay) overlay.style.opacity = "0";
+        if (panel) panel.classList.add("whatsapp-slide-out");
         
         setTimeout(() => {
             isModalOpen = false;
             isClosing = false;
-            const container = document.getElementById('whatsapp-modal-container');
+            const container = document.getElementById("whatsapp-modal-container");
             if (container) container.remove();
         }, 300);
     }
@@ -116,22 +117,22 @@
         
         createModal();
         
-        const overlay = document.getElementById('whatsapp-modal-overlay');
-        const panel = document.getElementById('whatsapp-modal-panel');
+        const overlay = document.getElementById("whatsapp-modal-overlay");
+        const panel = document.getElementById("whatsapp-modal-panel");
         
         setTimeout(() => {
-            if (overlay) overlay.style.opacity = '1';
-            if (panel) panel.classList.add('whatsapp-slide-in-active');
+            if (overlay) overlay.style.opacity = "1";
+            if (panel) panel.classList.add("whatsapp-slide-in-active");
             isOpening = false;
         }, 50);
         
         setTimeout(() => {
             showContent = true;
-            const elements = document.querySelectorAll('.whatsapp-fade-in');
+            const elements = document.querySelectorAll(".whatsapp-fade-in");
             elements.forEach((el, index) => {
                 setTimeout(() => {
-                    el.style.opacity = '1';
-                    el.style.transform = 'translateY(0)';
+                    el.style.opacity = "1";
+                    el.style.transform = "translateY(0)";
                 }, index * 100);
             });
         }, 200);
@@ -141,9 +142,9 @@
         e.preventDefault();
         if (isSubmitting) return;
         
-        const nameInput = document.getElementById('whatsapp-name');
-        const phoneInput = document.getElementById('whatsapp-phone');
-        const submitBtn = document.getElementById('whatsapp-submit-btn');
+        const nameInput = document.getElementById("whatsapp-name");
+        const phoneInput = document.getElementById("whatsapp-phone");
+        const submitBtn = document.getElementById("whatsapp-submit-btn");
         
         if (!nameInput || !phoneInput) return;
         
@@ -175,7 +176,7 @@
         try {
             const payload = {
                 nome: formData.name,
-                telefone: formData.phone.replace(/\D/g, ''),
+                telefone: formData.phone.replace(/\D/g, ""),
                 gclid: formData.gclid,
                 utm_source: formData.utm_source,
                 utm_medium: formData.utm_medium,
@@ -185,10 +186,10 @@
             };
 
             await fetch(GOOGLE_SCRIPT_WEB_APP_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                cache: 'no-cache',
-                redirect: 'follow',
+                method: "POST",
+                mode: "no-cors",
+                cache: "no-cache",
+                redirect: "follow",
                 body: JSON.stringify(payload)
             });
 
@@ -196,7 +197,7 @@
             setStatus("Dados enviados! Redirecionando para o WhatsApp...", "success");
             submitStatus = "success";
 
-            const message = `Olá! Meu nome é ${formData.name}. Gostaria de mais informações.\n\n📱 Telefone: ${formData.phone}\n\n(Ref: ${formData.gclid ? `GCLID ${formData.gclid}` : ''} ${formData.utm_source ? `Source ${formData.utm_source}` : ''}) \n\nAguardo seu contato!`;
+            const message = `Olá! Meu nome é ${formData.name}. Gostaria de mais informações.\n\n📱 Telefone: ${formData.phone}\n\n(Ref: ${formData.gclid ? `GCLID ${formData.gclid}` : ""} ${formData.utm_source ? `Source ${formData.utm_source}` : ""}) \n\nAguardo seu contato!`;
             const whatsappUrl = "https://tintim.link/whatsapp/826e2a65-3402-47a3-9dae-9e6a55f5ddb5/0ad8dba1-d477-46fe-b8df-ab703e0415a2";
 
             window.open(whatsappUrl, "_blank");
@@ -216,12 +217,12 @@
 
     // --- Criação dos Elementos HTML ---
     function createWhatsAppButton() {
-        const container = document.createElement('div');
-        container.id = 'whatsapp-gtm-container';
+        const container = document.createElement("div");
+        container.id = "whatsapp-gtm-container";
         
-        const button = document.createElement('button');
-        button.className = 'whatsapp-fab';
-        button.title = 'Fale conosco pelo WhatsApp';
+        const button = document.createElement("button");
+        button.className = "whatsapp-fab";
+        button.title = "Fale conosco pelo WhatsApp";
         button.innerHTML = `
             <svg viewBox="0 0 24 24" fill="currentColor">
                 <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.465 3.085"/>
@@ -235,27 +236,27 @@
 
     function createModal() {
         // Remover modal existente se houver
-        const existingModal = document.getElementById('whatsapp-modal-container');
+        const existingModal = document.getElementById("whatsapp-modal-container");
         if (existingModal) existingModal.remove();
         
-        const modalContainer = document.createElement('div');
-        modalContainer.id = 'whatsapp-modal-container';
+        const modalContainer = document.createElement("div");
+        modalContainer.id = "whatsapp-modal-container";
         
-        const overlay = document.createElement('div');
-        overlay.id = 'whatsapp-modal-overlay';
-        overlay.className = 'whatsapp-modal-overlay';
-        overlay.style.opacity = '0';
+        const overlay = document.createElement("div");
+        overlay.id = "whatsapp-modal-overlay";
+        overlay.className = "whatsapp-modal-overlay";
+        overlay.style.opacity = "0";
         overlay.onclick = (e) => {
             if (e.target === overlay) closeModal();
         };
         
-        const panel = document.createElement('div');
-        panel.id = 'whatsapp-modal-panel';
-        panel.className = 'whatsapp-modal-panel whatsapp-slide-in';
+        const panel = document.createElement("div");
+        panel.id = "whatsapp-modal-panel";
+        panel.className = "whatsapp-modal-panel whatsapp-slide-in";
         
         // Header
-        const header = document.createElement('div');
-        header.className = 'whatsapp-modal-header';
+        const header = document.createElement("div");
+        header.className = "whatsapp-modal-header";
         header.innerHTML = `
             <div class="whatsapp-header-title">
                 <div class="whatsapp-header-icon">
@@ -273,8 +274,8 @@
         `;
         
         // Body
-        const body = document.createElement('div');
-        body.className = 'whatsapp-modal-body';
+        const body = document.createElement("div");
+        body.className = "whatsapp-modal-body";
         body.innerHTML = `
             <div class="whatsapp-fade-in" style="opacity: 0; transform: translateY(10px); transition: all 0.3s ease;">
                 <h3 class="whatsapp-modal-title">Fale Conosco</h3>
@@ -312,6 +313,11 @@
                         Iniciar Conversa
                     </button>
                 </div>
+                
+                <p class="whatsapp-modal-footer-text whatsapp-fade-in" style="opacity: 0; transform: translateY(10px); transition: all 0.3s ease; text-align: center; margin-top: 20px; font-size: 0.8em; color: #6b7280;">
+                    Ao enviar, seus dados serão registrados e você será
+                    redirecionado(a) para o WhatsApp.
+                </p>
             </form>
         `;
         
@@ -321,62 +327,43 @@
         modalContainer.appendChild(overlay);
         document.body.appendChild(modalContainer);
         
-        // Adicionar event listeners
-        document.getElementById('whatsapp-close-btn').onclick = closeModal;
-        document.getElementById('whatsapp-form').onsubmit = handleSubmit;
-        
-        const phoneInput = document.getElementById('whatsapp-phone');
-        phoneInput.oninput = (e) => {
-            e.target.value = formatPhoneNumber(e.target.value);
-        };
+        document.getElementById("whatsapp-close-btn").onclick = closeModal;
+        document.getElementById("whatsapp-form").onsubmit = handleSubmit;
+
+        const phoneInput = document.getElementById("whatsapp-phone");
+        if (phoneInput) {
+            phoneInput.addEventListener("input", (e) => {
+                e.target.value = formatPhoneNumber(e.target.value);
+            });
+        }
     }
 
     // --- Inicialização ---
     function init() {
-        // Injetar CSS
-        const link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.type = 'text/css';
+        // Carregar o CSS
+        const link = document.createElement("link");
+        link.rel = "stylesheet";
+        link.type = "text/css";
         link.href = CSS_URL;
         document.head.appendChild(link);
-        
-        // Coletar parâmetros da URL
+
+        // Criar o botão FAB após o CSS ser carregado (ou com um pequeno delay)
+        link.onload = () => {
+            setTimeout(createWhatsAppButton, SHOW_DELAY_MS);
+        };
+        // Fallback caso o evento onload não dispare (ex: CSS já em cache)
+        if ("onload" in link === false) {
+            setTimeout(createWhatsAppButton, SHOW_DELAY_MS);
+        }
+
         getUrlParams();
-        
-        // Criar botão após delay
-        setTimeout(createWhatsAppButton, SHOW_DELAY_MS);
     }
 
-    // Iniciar quando o DOM estiver pronto
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', init);
+    // Iniciar o script quando o DOM estiver completamente carregado
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", init);
     } else {
         init();
     }
-})();
-
-    // --- Inicialização ---
-    function init() {
-        // Carregar CSS
-        const link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.href = CSS_URL;
-        document.head.appendChild(link);
-        
-        // Aguardar carregamento da página e criar botão
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', () => {
-                setTimeout(createWhatsAppButton, SHOW_DELAY_MS);
-            });
-        } else {
-            setTimeout(createWhatsAppButton, SHOW_DELAY_MS);
-        }
-        
-        // Capturar parâmetros da URL
-        getUrlParams();
-    }
-    
-    // Inicializar o script
-    init();
 })();
 
