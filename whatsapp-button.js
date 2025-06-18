@@ -1,9 +1,9 @@
-// WhatsApp Button Script - Versão com ajuste de visibilidade do botão
+// WhatsApp Button Script - Versão com Mensagem de CTA
 (function() {
     // --- CONFIGURAÇÕES ---
-    const GOOGLE_SCRIPT_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxCfahnAV6rMhAyIhMXEchwkMAlcmtQGYQV_0F2Uyn2i9CCt8x0XytNm9Yu8m8YUv5YTw/exec"; // Substitua pela URL do seu Google Apps Script Web App
-    const CSS_URL = "https://mateusdsl.github.io/whatsapp-gtm-script/whatsapp-button.css"; // URL para o arquivo CSS.
-    const SHOW_DELAY_MS = 0; // Delay para mostrar o botão
+    const GOOGLE_SCRIPT_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxCfahnAV6rMhAyIhMXEchwkMAlcmtQGYQV_0F2Uyn2i9CCt8x0XytNm9Yu8m8YUv5YTw/exec";
+    const CSS_URL = "https://mateusdsl.github.io/whatsapp-gtm-script/whatsapp-button.css";
+    const SHOW_DELAY_MS = 1000;
 
     // --- Variáveis de Estado ---
     let isModalOpen = false;
@@ -55,9 +55,9 @@
     function closeModal() {
         if (isClosing) return;
         
-        // NOVO: Faz o botão reaparecer
-        const fab = document.querySelector('.whatsapp-fab');
-        if (fab) fab.classList.remove('whatsapp-fab-hidden');
+        // Faz o widget (botão + balão) reaparecer
+        const widgetWrapper = document.querySelector('.whatsapp-widget-wrapper');
+        if (widgetWrapper) widgetWrapper.classList.add('show');
 
         isClosing = true;
         const overlay = document.getElementById("whatsapp-modal-overlay");
@@ -75,9 +75,9 @@
     function openModal() {
         if (isModalOpen) return;
 
-        // NOVO: Faz o botão desaparecer
-        const fab = document.querySelector('.whatsapp-fab');
-        if (fab) fab.classList.add('whatsapp-fab-hidden');
+        // Faz o widget (botão + balão) desaparecer
+        const widgetWrapper = document.querySelector('.whatsapp-widget-wrapper');
+        if (widgetWrapper) widgetWrapper.classList.remove('show');
 
         isModalOpen = true;
         createModal();
@@ -107,70 +107,58 @@
             setStatus("Por favor, preencha nome e telefone válidos.", "error");
             return;
         }
-
         formData.name = nameInput.value;
         formData.phone = phoneInput.value;
-
         const whatsappUrl = "https://tintim.link/whatsapp/826e2a65-3402-47a3-9dae-9e6a55f5ddb5/0ad8dba1-d477-46fe-b8df-ab703e0415a2";
-
         window.open(whatsappUrl, "_blank");
-
         isSubmitting = true;
         setStatus(null);
-        
         const submitBtn = document.getElementById("whatsapp-submit-btn");
         if (submitBtn) {
             submitBtn.disabled = true;
             submitBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="whatsapp-spinner"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>Enviado!`;
         }
-
-        const payload = {
-            nome: formData.name,
-            telefone: formData.phone.replace(/\D/g, ""),
-            gclid: formData.gclid,
-            utm_source: formData.utm_source,
-            utm_medium: formData.utm_medium,
-            utm_campaign: formData.utm_campaign,
-            utm_term: formData.utm_term,
-            utm_content: formData.utm_content,
-        };
-
+        const payload = { nome: formData.name, telefone: formData.phone.replace(/\D/g, ""), gclid: formData.gclid, utm_source: formData.utm_source, utm_medium: formData.utm_medium, utm_campaign: formData.utm_campaign, utm_term: formData.utm_term, utm_content: formData.utm_content };
         if (GOOGLE_SCRIPT_WEB_APP_URL) {
-            fetch(GOOGLE_SCRIPT_WEB_APP_URL, {
-                method: "POST",
-                mode: "no-cors",
-                cache: "no-cache",
-                redirect: "follow",
-                body: JSON.stringify(payload)
-            }).catch(error => {
-                console.error("Erro de rede ao enviar para o Google Script:", error);
-            });
+            fetch(GOOGLE_SCRIPT_WEB_APP_URL, { method: "POST", mode: "no-cors", cache: "no-cache", redirect: "follow", body: JSON.stringify(payload) })
+            .catch(error => console.error("Erro de rede ao enviar para o Google Script:", error));
         } else {
             console.error("URL do Google Apps Script não configurada!");
         }
-
         setTimeout(() => {
             closeModal();
             resetForm();
         }, 2000);
     }
 
-    // --- Funções de Criação de HTML (sem alterações) ---
-    function createWhatsAppButton() {
-        const container = document.createElement("div");
+    // --- NOVA FUNÇÃO DE CRIAÇÃO DOS ELEMENTOS ---
+    function createWidget() {
+        const container = document.getElementById("whatsapp-gtm-container") || document.createElement("div");
         container.id = "whatsapp-gtm-container";
+        
+        const widgetWrapper = document.createElement("div");
+        widgetWrapper.className = "whatsapp-widget-wrapper";
+
+        const messageBubble = document.createElement("div");
+        messageBubble.className = "whatsapp-cta-bubble";
+        messageBubble.innerHTML = "Olá! 👋 Como posso te ajudar?";
+
         const button = document.createElement("button");
         button.className = "whatsapp-fab";
         button.title = "Fale conosco pelo WhatsApp";
         button.innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.465 3.085"/></svg>`;
         button.onclick = openModal;
-        container.appendChild(button);
+        
+        widgetWrapper.appendChild(messageBubble);
+        widgetWrapper.appendChild(button);
+        container.appendChild(widgetWrapper);
         document.body.appendChild(container);
     }
 
     function createModal() {
-        const modalContainer = document.createElement("div");
+        const modalContainer = document.getElementById("whatsapp-modal-container") || document.createElement("div");
         modalContainer.id = "whatsapp-modal-container";
+        // ... (o resto da função createModal permanece o mesmo, foi omitido por brevidade)
         const overlay = document.createElement("div");
         overlay.id = "whatsapp-modal-overlay";
         overlay.className = "whatsapp-modal-overlay";
@@ -180,24 +168,8 @@
         panel.id = "whatsapp-modal-panel";
         panel.className = "whatsapp-modal-panel whatsapp-slide-in";
         panel.innerHTML = `
-            <div class="whatsapp-modal-header">
-                <div class="whatsapp-header-title">
-                    <div class="whatsapp-header-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/></svg></div>
-                    <h2 class="whatsapp-header-text">WhatsApp</h2>
-                </div>
-                <button id="whatsapp-close-btn" class="whatsapp-close-btn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
-            </div>
-            <div class="whatsapp-modal-body">
-                <div class="whatsapp-fade-in" style="opacity:0;transform:translateY(10px);transition:all .3s ease"><h3 class="whatsapp-modal-title">Fale Conosco</h3><p class="whatsapp-modal-description">Deixe seus dados e inicie uma conversa no WhatsApp.</p></div>
-                <div id="whatsapp-status-message" class="whatsapp-status-message" style="display:none"></div>
-                <form id="whatsapp-form">
-                    <div class="whatsapp-form-group whatsapp-fade-in" style="opacity:0;transform:translateY(10px);transition:all .3s ease"><label for="whatsapp-name" class="whatsapp-form-label">Nome</label><div class="whatsapp-input-container"><svg class="whatsapp-input-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><input type="text" id="whatsapp-name" class="whatsapp-input" placeholder="Seu nome completo" required></div></div>
-                    <div class="whatsapp-form-group whatsapp-fade-in" style="opacity:0;transform:translateY(10px);transition:all .3s ease"><label for="whatsapp-phone" class="whatsapp-form-label">Telefone (WhatsApp)</label><div class="whatsapp-input-container"><svg class="whatsapp-input-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg><input type="tel" id="whatsapp-phone" class="whatsapp-input" placeholder="(XX) XXXXX-XXXX" required maxlength="15"></div></div>
-                    <div class="whatsapp-fade-in" style="opacity:0;transform:translateY(10px);transition:all .3s ease;margin-top:16px"><button type="submit" id="whatsapp-submit-btn" class="whatsapp-submit-btn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/></svg>Iniciar Conversa</button></div>
-                    <p class="whatsapp-modal-footer-text whatsapp-fade-in" style="opacity:0;transform:translateY(10px);transition:all .3s ease;text-align:center;margin-top:20px;font-size:.8em;color:#6b7280">Ao enviar, seus dados serão registrados e você será redirecionado(a) para o WhatsApp.</p>
-                </form>
-            </div>
-        `;
+            <div class="whatsapp-modal-header"><div class="whatsapp-header-title"><div class="whatsapp-header-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/></svg></div><h2 class="whatsapp-header-text">WhatsApp</h2></div><button id="whatsapp-close-btn" class="whatsapp-close-btn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button></div>
+            <div class="whatsapp-modal-body"><div class="whatsapp-fade-in" style="opacity:0;transform:translateY(10px);transition:all .3s ease"><h3 class="whatsapp-modal-title">Fale Conosco</h3><p class="whatsapp-modal-description">Deixe seus dados e inicie uma conversa no WhatsApp.</p></div><div id="whatsapp-status-message" class="whatsapp-status-message" style="display:none"></div><form id="whatsapp-form"><div class="whatsapp-form-group whatsapp-fade-in" style="opacity:0;transform:translateY(10px);transition:all .3s ease"><label for="whatsapp-name" class="whatsapp-form-label">Nome</label><div class="whatsapp-input-container"><svg class="whatsapp-input-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><input type="text" id="whatsapp-name" class="whatsapp-input" placeholder="Seu nome completo" required></div></div><div class="whatsapp-form-group whatsapp-fade-in" style="opacity:0;transform:translateY(10px);transition:all .3s ease"><label for="whatsapp-phone" class="whatsapp-form-label">Telefone (WhatsApp)</label><div class="whatsapp-input-container"><svg class="whatsapp-input-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg><input type="tel" id="whatsapp-phone" class="whatsapp-input" placeholder="(XX) XXXXX-XXXX" required maxlength="15"></div></div><div class="whatsapp-fade-in" style="opacity:0;transform:translateY(10px);transition:all .3s ease;margin-top:16px"><button type="submit" id="whatsapp-submit-btn" class="whatsapp-submit-btn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/></svg>Iniciar Conversa</button></div><p class="whatsapp-modal-footer-text whatsapp-fade-in" style="opacity:0;transform:translateY(10px);transition:all .3s ease;text-align:center;margin-top:20px;font-size:.8em;color:#6b7280">Ao enviar, seus dados serão registrados e você será redirecionado(a) para o WhatsApp.</p></form></div>`;
         overlay.appendChild(panel);
         modalContainer.appendChild(overlay);
         document.body.appendChild(modalContainer);
@@ -205,9 +177,7 @@
         document.getElementById("whatsapp-form").onsubmit = handleSubmit;
         const phoneInput = document.getElementById("whatsapp-phone");
         if (phoneInput) {
-            phoneInput.addEventListener("input", (e) => {
-                e.target.value = formatPhoneNumber(e.target.value);
-            });
+            phoneInput.addEventListener("input", (e) => { e.target.value = formatPhoneNumber(e.target.value); });
         }
     }
 
@@ -217,9 +187,17 @@
         link.rel = "stylesheet";
         link.href = CSS_URL;
         document.head.appendChild(link);
-        const loadButton = () => setTimeout(createWhatsAppButton, SHOW_DELAY_MS);
-        link.onload = loadButton;
-        link.onerror = loadButton;
+        
+        const loadWidget = () => {
+            createWidget();
+            setTimeout(() => {
+                const widgetWrapper = document.querySelector('.whatsapp-widget-wrapper');
+                if (widgetWrapper) widgetWrapper.classList.add('show');
+            }, SHOW_DELAY_MS);
+        };
+        
+        link.onload = loadWidget;
+        link.onerror = loadWidget;
         getUrlParams();
     }
 
