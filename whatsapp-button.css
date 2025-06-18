@@ -48,12 +48,16 @@
     animation: cta-bubble-fade-in 0.5s ease 0.5s forwards; /* Animação com delay */
 }
 
-/* Botão Flutuante (ATUALIZADO) */
+/* Botão Flutuante (ATUALIZADO e CORRIGIDO) */
 .whatsapp-fab {
-  /* REMOVIDO: position, bottom, right, z-index (controlado pelo wrapper) */
-  position: relative; /* Para garantir ordenamento, se necessário */
+  position: relative;
+  
+  /* GARANTIA DE TAMANHO: Força o botão a nunca encolher */
   width: 56px;
   height: 56px;
+  min-width: 56px;
+  min-height: 56px;
+  
   border-radius: 50%;
   background-color: var(--whatsapp-green);
   color: var(--whatsapp-text-light);
@@ -63,9 +67,9 @@
   justify-content: center;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   cursor: pointer;
-  animation: whatsapp-pulse 2s infinite 1s; /* Inicia pulso após 1s */
+  animation: whatsapp-pulse 2s infinite 1s;
   transition: transform 0.3s ease, background-color 0.3s ease;
-  flex-shrink: 0; /* Impede que o botão encolha */
+  flex-shrink: 0;
 }
 
 .whatsapp-fab:hover {
