@@ -1,4 +1,4 @@
-// WhatsApp Button Script - Versão Atualizada para GTM
+// WhatsApp Button Script - Versão Atualizada para GTM com correção para Safari
 (function() {
     // --- CONFIGURAÇÕES --- (Altere estes valores)
     const GOOGLE_SCRIPT_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxCfahnAV6rMhAyIhMXEchwkMAlcmtQGYQV_0F2Uyn2i9CCt8x0XytNm9Yu8m8YUv5YTw/exec"; // Substitua pela URL do seu Google Apps Script Web App
@@ -138,7 +138,8 @@
         }, 200);
     }
 
-    async function handleSubmit(e) {
+    // --- FUNÇÃO CORRIGIDA PARA O SAFARI ---
+    function handleSubmit(e) {
         e.preventDefault();
         if (isSubmitting) return;
         
@@ -146,14 +147,16 @@
         const phoneInput = document.getElementById("whatsapp-phone");
         const submitBtn = document.getElementById("whatsapp-submit-btn");
         
-        if (!nameInput || !phoneInput) return;
+        if (!nameInput || !phoneInput || !nameInput.value || !phoneInput.value) {
+            setStatus("Por favor, preencha todos os campos.", "error");
+            return;
+        }
         
         formData.name = nameInput.value;
         formData.phone = phoneInput.value;
         
         isSubmitting = true;
-        submitStatus = null;
-        setStatus("Enviando dados...", "info");
+        setStatus("Redirecionando para o WhatsApp...", "info");
         
         if (submitBtn) {
             submitBtn.disabled = true;
@@ -161,59 +164,56 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="whatsapp-spinner">
                     <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
                 </svg>
-                Processando...
+                Aguarde...
             `;
         }
 
         if (!GOOGLE_SCRIPT_WEB_APP_URL) {
             console.error("URL do Google Apps Script não configurada!");
-            setStatus("Erro de configuração: URL do Google Script não definida.", "error");
+            setStatus("Erro de configuração interna. Tente mais tarde.", "error");
             isSubmitting = false;
-            if (submitBtn) submitBtn.disabled = false;
+            if (submitBtn) resetForm(); // Reseta o botão para o estado inicial
             return;
         }
 
-        try {
-            const payload = {
-                nome: formData.name,
-                telefone: formData.phone.replace(/\D/g, ""),
-                gclid: formData.gclid,
-                utm_source: formData.utm_source,
-                utm_medium: formData.utm_medium,
-                utm_campaign: formData.utm_campaign,
-                utm_term: formData.utm_term,
-                utm_content: formData.utm_content,
-            };
+        const payload = {
+            nome: formData.name,
+            telefone: formData.phone.replace(/\D/g, ""),
+            gclid: formData.gclid,
+            utm_source: formData.utm_source,
+            utm_medium: formData.utm_medium,
+            utm_campaign: formData.utm_campaign,
+            utm_term: formData.utm_term,
+            utm_content: formData.utm_content,
+        };
 
-            await fetch(GOOGLE_SCRIPT_WEB_APP_URL, {
-                method: "POST",
-                mode: "no-cors",
-                cache: "no-cache",
-                redirect: "follow",
-                body: JSON.stringify(payload)
-            });
+        // Dispara a requisição em modo 'no-cors' sem esperar pela conclusão,
+        // pois não podemos ler a resposta de qualquer maneira.
+        fetch(GOOGLE_SCRIPT_WEB_APP_URL, {
+            method: "POST",
+            mode: "no-cors",
+            cache: "no-cache",
+            redirect: "follow",
+            body: JSON.stringify(payload)
+        }).catch(error => {
+            // Mesmo com 'no-cors', podemos registrar um erro de rede, se ocorrer.
+            console.error("Erro de rede ao tentar enviar para o Google Script:", error);
+        });
+        
+        // Prepara a URL e abre o WhatsApp imediatamente após iniciar o envio.
+        // Isso aumenta a chance de o Safari não bloquear o pop-up.
+        const message = `Olá! Meu nome é ${formData.name}. Gostaria de mais informações.\n\n📱 Telefone: ${formData.phone}\n\n(Ref: ${formData.gclid ? `GCLID ${formData.gclid}` : ""} ${formData.utm_source ? `Source ${formData.utm_source}` : ""}) \n\nAguardo seu contato!`;
+        const whatsappUrl = "https://tintim.link/whatsapp/826e2a65-3402-47a3-9dae-9e6a55f5ddb5/0ad8dba1-d477-46fe-b8df-ab703e0415a2";
 
-            console.log("Tentativa de envio para o Google Script concluída.");
-            setStatus("Dados enviados! Redirecionando para o WhatsApp...", "success");
-            submitStatus = "success";
+        window.open(whatsappUrl, "_blank");
 
-            const message = `Olá! Meu nome é ${formData.name}. Gostaria de mais informações.\n\n📱 Telefone: ${formData.phone}\n\n(Ref: ${formData.gclid ? `GCLID ${formData.gclid}` : ""} ${formData.utm_source ? `Source ${formData.utm_source}` : ""}) \n\nAguardo seu contato!`;
-            const whatsappUrl = "https://tintim.link/whatsapp/826e2a65-3402-47a3-9dae-9e6a55f5ddb5/0ad8dba1-d477-46fe-b8df-ab703e0415a2";
-
-            window.open(whatsappUrl, "_blank");
-            setTimeout(() => {
-                resetForm();
-                closeModal();
-            }, 1500);
-
-        } catch (error) {
-            console.error("Erro ao enviar dados para o Google Script:", error);
-            setStatus("Erro ao enviar dados. Tente novamente.", "error");
-            submitStatus = "error";
-            isSubmitting = false;
-            if (submitBtn) submitBtn.disabled = false;
-        }
+        // Fecha o modal após um tempo para o usuário ver a mensagem.
+        setTimeout(() => {
+            resetForm();
+            closeModal();
+        }, 1500);
     }
+
 
     // --- Criação dos Elementos HTML ---
     function createWhatsAppButton() {
@@ -366,4 +366,3 @@
         init();
     }
 })();
-
