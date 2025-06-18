@@ -53,10 +53,10 @@
   position: relative;
   
   /* GARANTIA DE TAMANHO: Força o botão a nunca encolher */
-  width: 56px;
-  height: 56px;
-  min-width: 56px;
-  min-height: 56px;
+  width: 68px;
+  height: 68px;
+  min-width: 68px;
+  min-height: 68px;
   
   border-radius: 50%;
   background-color: var(--whatsapp-green);
