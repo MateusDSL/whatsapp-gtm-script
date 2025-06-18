@@ -6,11 +6,12 @@ const CSS_URL = "https://mateusdsl.github.io/whatsapp-gtm-script/whatsapp-button
 
 // --- SVGs DOS ÍCONES ---
 const ICONS = {
+  // NOVO: Adicionado o ícone oficial do WhatsApp
+  whatsapp: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 .9c48.4 0 93.2 18.7 127.3 52.8 34.1 34.1 52.8 78.9 52.8 127.3 0 99.9-81.5 181.4-181.4 181.4-33.2 0-65.4-9.1-93-25.7l-9.7-5.7-69.8 18.3L72 359.2l-6.1-10.1C47.4 321.6 32 282.7 32 240c0-99.9 81.5-181.4 181.4-181.4zM248 357.5c-3.3-1.7-19.8-9.8-22.8-10.9-3.1-1.1-5.3-1.7-7.6 1.7-2.3 3.3-8.6 10.9-10.6 13.1-1.9 2.2-3.8 2.5-7.1 0.8-3.3-1.7-14-5.2-26.6-16.4-9.9-8.7-16.5-19.4-18.5-22.8-1.9-3.3-.2-5.1.8-6.8 1-1.7 2.3-4.3 3.4-6.5 1.1-2.2 1.7-3.8 2.5-6.4 0.8-2.6 0-4.9-0.9-6.8s-7.6-18.2-10.3-24.9c-2.8-6.8-5.6-5.8-7.8-5.9-2.1-.1-4.4-.1-6.6-.1-2.2 0-5.8 0.8-8.8 3.8-3.1 3-11.8 11.5-11.8 28.1 0 16.5 12.1 32.6 13.8 34.8 1.7 2.2 23.5 37.6 57.4 50.4 8.4 3.2 15 4.9 20.1 6.2 9.1 2.3 17.5 2 23.3 1.2 6.5-0.8 19.8-8.1 22.5-15.8 2.8-7.8 2.8-14.4 2-15.8-0.9-1.4-3.1-2.2-6.4-3.8z"/></svg>`,
   messageCircle: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>`,
   x: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`,
   phone: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>`,
   user: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>`,
-  mail: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>`,
   loader: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="animate-spin-manual"><path d="M21 12a9 9 0 1 1-6.219-8.56"></path></svg>`
 };
 
@@ -20,11 +21,13 @@ let isClosing = false;
 let isOpening = false;
 let showContent = false;
 let isSubmitting = false;
-let submitStatus = null; // "success", "error"
+let submitStatus = null;
 let statusMessageText = "";
-let formData = { name: "", phone: "", email: "" };
+// ATUALIZADO: Removido 'email' do formData
+let formData = { name: "", phone: "" };
 
-let modalElement, overlayElement, panelElement, formElement, nameInput, emailInput, phoneInput, submitButton, statusMessageElement, floatingButtonElement, mainContainerElement;
+// ATUALIZADO: Removido 'emailInput' da lista de elementos
+let modalElement, overlayElement, panelElement, formElement, nameInput, phoneInput, submitButton, statusMessageElement, floatingButtonElement, mainContainerElement;
 
 // --- FUNÇÕES AUXILIARES ---
 function createElement(tag, classList = [], attributes = {}, innerHTML = "") {
@@ -38,10 +41,8 @@ function createElement(tag, classList = [], attributes = {}, innerHTML = "") {
 function createSVGIcon(iconName, baseClassList = [], hoverClassList = []) {
     const iconContainer = createElement('span', baseClassList);
     iconContainer.innerHTML = ICONS[iconName] || '';
-    // Para classes de hover, você precisaria de CSS ou adicionar/remover classes em JS listeners
     return iconContainer;
 }
-
 
 // --- LÓGICA DO MODAL E FORMULÁRIO ---
 function openModal() {
@@ -51,19 +52,19 @@ function openModal() {
   showContent = false;
   submitStatus = null;
   statusMessageText = "";
-  formData = { name: "", phone: "", email: "" };
+  // ATUALIZADO: Removido 'email' do reset do formData
+  formData = { name: "", phone: "" };
   if(nameInput) nameInput.value = "";
-  if(emailInput) emailInput.value = "";
+  // ATUALIZADO: Removido o reset do campo de email
   if(phoneInput) phoneInput.value = "";
   updateStatusMessage();
   
-  mainContainerElement.style.display = "block"; // Mostra o container do modal
-  modalElement.style.display = "block"; // Garante que o modal está visível para animação
+  mainContainerElement.style.display = "block";
+  modalElement.style.display = "block";
   
-  // Força reflow para aplicar animação de entrada
   requestAnimationFrame(() => {
     overlayElement.classList.remove("opacity-0");
-    overlayElement.classList.add("opacity-30"); // Tailwind: bg-opacity-30
+    overlayElement.classList.add("opacity-30");
     
     panelElement.classList.remove("slide-in-start");
     panelElement.classList.add("slide-in-end");
@@ -75,11 +76,10 @@ function openModal() {
 
   setTimeout(() => {
     showContent = true;
-    // Animar conteúdo individualmente (adicionando classes como 'animate-fade-in-up-X')
     const animatedElements = panelElement.querySelectorAll("[data-animate-order]");
     animatedElements.forEach(el => {
         const order = el.dataset.animateOrder;
-        el.classList.remove("opacity-0", "translate-y-4"); // Tailwind: opacity-0, translate-y-4
+        el.classList.remove("opacity-0", "translate-y-4");
         el.classList.add(`animate-fade-in-up-${order}`);
     });
   }, 200);
@@ -135,7 +135,7 @@ function handleInputChange(e) {
 function updateStatusMessage() {
     if (!statusMessageElement) return;
     statusMessageElement.textContent = statusMessageText;
-    statusMessageElement.className = 'mb-3 p-2 text-sm rounded-lg text-center'; // Base classes
+    statusMessageElement.className = 'mb-3 p-2 text-sm rounded-lg text-center';
 
     if (!statusMessageText) {
         statusMessageElement.style.display = 'none';
@@ -144,12 +144,12 @@ function updateStatusMessage() {
     statusMessageElement.style.display = 'block';
 
     if (isSubmitting && submitStatus !== 'success' && submitStatus !== 'error') {
-        statusMessageElement.classList.add('bg-blue-100', 'text-blue-700', 'border', 'border-blue-200'); // Tailwind
+        statusMessageElement.classList.add('bg-blue-100', 'text-blue-700', 'border', 'border-blue-200');
         statusMessageElement.innerHTML = ICONS.loader + ' ' + statusMessageText;
     } else if (submitStatus === "success") {
-        statusMessageElement.classList.add('bg-green-100', 'text-green-700', 'border', 'border-green-200'); // Tailwind
+        statusMessageElement.classList.add('bg-green-100', 'text-green-700', 'border', 'border-green-200');
     } else if (submitStatus === "error") {
-        statusMessageElement.classList.add('bg-red-100', 'text-red-700', 'border', 'border-red-200'); // Tailwind
+        statusMessageElement.classList.add('bg-red-100', 'text-red-700', 'border', 'border-red-200');
     } else {
          statusMessageElement.style.display = 'none';
     }
@@ -174,15 +174,15 @@ async function handleSubmit(e) {
   updateSubmitButtonState();
 
   try {
+    // ATUALIZADO: Removido 'email' do corpo da requisição
     const body = JSON.stringify({
       nome: formData.name,
       telefone: formData.phone.replace(/\D/g, ''),
-      email: formData.email,
     });
 
     await fetch(GOOGLE_SCRIPT_WEB_APP_URL, {
       method: 'POST',
-      mode: 'no-cors', // Conforme o original
+      mode: 'no-cors',
       cache: 'no-cache',
       redirect: 'follow',
       body: body
@@ -193,8 +193,8 @@ async function handleSubmit(e) {
     submitStatus = "success";
     updateStatusMessage();
 
-
-    const message = `Olá! Meu nome é ${formData.name}. Gostaria de mais informações.\n\n📧 Email: ${formData.email}\n📱 Telefone: ${formData.phone}\n\nAguardo seu contato!`;
+    // ATUALIZADO: Removido 'email' da mensagem do WhatsApp
+    const message = `Olá! Meu nome é ${formData.name}. Gostaria de mais informações.\n\n📱 Telefone: ${formData.phone}\n\nAguardo seu contato!`;
     const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 
     setTimeout(() => {
@@ -220,9 +220,9 @@ async function handleSubmit(e) {
 function updateSubmitButtonState() {
     if (!submitButton) return;
     submitButton.disabled = isSubmitting;
-    const buttonTextSpan = submitButton.querySelector('span');
-    const loaderIcon = submitButton.querySelector('svg.animate-spin-manual'); // Procura o loader SVG
-    const messageIcon = submitButton.querySelector('svg:not(.animate-spin-manual)'); // Procura o ícone de mensagem
+    const buttonTextSpan = submitButton.querySelector('span.hover-text-glow'); // Selecionador mais específico
+    const loaderIcon = submitButton.querySelector('svg.animate-spin-manual');
+    const messageIcon = submitButton.querySelector('svg:not(.animate-spin-manual)');
 
     if (isSubmitting) {
         if (buttonTextSpan) buttonTextSpan.textContent = "Processando...";
@@ -236,39 +236,36 @@ function updateSubmitButtonState() {
     }
 }
 
-
 // --- CRIAÇÃO DO DOM ---
 function createDOM() {
-  // Container principal que engloba o botão e o modal
-  mainContainerElement = createElement('div', ['whatsapp-lead-capture-container', 'font-sans']); // 'font-sans' é do seu CSS jsx
+  mainContainerElement = createElement('div', ['whatsapp-lead-capture-container', 'font-sans']);
 
   // 1. Botão Flutuante
   floatingButtonElement = createElement('button', ['fixed', 'bottom-6', 'right-6', 'z-[99]', 'w-14', 'h-14', 'rounded-full', 'bg-[#25D366]', 'hover:bg-[#20BA5A]', 'shadow-lg', 'hover:shadow-xl', 'transition-all', 'duration-300', 'hover:scale-110', 'animate-pulse', 'hover-float'], { title: "Fale conosco pelo WhatsApp" });
-  floatingButtonElement.innerHTML = `<span class="message-circle-icon w-6 h-6 text-white hover-rotate">${ICONS.messageCircle}</span>`; // Tailwind classes para o ícone
+  floatingButtonElement.innerHTML = `<span class="message-circle-icon w-6 h-6 text-white hover-rotate">${ICONS.messageCircle}</span>`;
   floatingButtonElement.onclick = openModal;
   mainContainerElement.appendChild(floatingButtonElement);
 
-  // 2. Modal (inicialmente escondido)
+  // 2. Modal
   modalElement = createElement('div', ['fixed', 'inset-0', 'z-[100]']);
-  modalElement.style.display = "none"; // Controlado por openModal/closeModal
+  modalElement.style.display = "none";
 
-  // 2a. Overlay
-  overlayElement = createElement('div', ['absolute', 'inset-0', 'bg-black', 'transition-opacity', 'duration-300', 'opacity-0']); // Começa opacity-0
+  overlayElement = createElement('div', ['absolute', 'inset-0', 'bg-black', 'transition-opacity', 'duration-300', 'opacity-0']);
   overlayElement.onclick = closeModal;
   modalElement.appendChild(overlayElement);
 
-  // 2b. Painel Deslizante
-  panelElement = createElement('div', ['absolute', 'right-0', 'bottom-0', 'h-auto', 'w-full', 'max-w-sm', 'bg-white', 'shadow-2xl', 'rounded-tl-3xl', 'rounded-bl-3xl', 'md:rounded-bl-none', 'spring-animation', 'slide-in-start']); // Tailwind classes + custom animation
+  panelElement = createElement('div', ['absolute', 'right-0', 'bottom-0', 'h-auto', 'w-full', 'max-w-sm', 'bg-white', 'shadow-2xl', 'rounded-tl-3xl', 'rounded-bl-3xl', 'md:rounded-bl-none', 'spring-animation', 'slide-in-start']);
 
   // Cabeçalho do Painel
   const headerPanel = createElement('div', ['flex', 'items-center', 'justify-between', 'p-3', 'border-b', 'border-gray-200', 'bg-[#25D366]', 'rounded-tl-3xl', 'hover-group']);
   const headerTitleDiv = createElement('div', ['flex', 'items-center', 'space-x-3']);
   const headerIconContainer = createElement('div', ['w-8', 'h-8', 'bg-white', 'bg-opacity-20', 'rounded-full', 'flex', 'items-center', 'justify-center', 'hover-pulse']);
-  headerIconContainer.innerHTML = `<span class="w-4 h-4 text-white hover-bounce">${ICONS.messageCircle}</span>`; // Tailwind
+  // ATUALIZADO: Trocado o ícone de 'messageCircle' para o novo 'whatsapp' e ajustado o tamanho
+  headerIconContainer.innerHTML = `<span class="w-5 h-5 text-white hover-bounce">${ICONS.whatsapp}</span>`;
   const headerTitle = createElement('h2', ['text-lg', 'font-semibold', 'text-white', 'hover-glow'], {}, "WhatsApp");
   headerTitleDiv.append(headerIconContainer, headerTitle);
   const closeButton = createElement('button', ['text-white', 'hover:bg-white', 'hover:bg-opacity-20', 'h-8', 'w-8', 'p-0', 'hover-rotate-close'], { type: 'button' });
-  closeButton.innerHTML = `<span class="w-4 h-4 hover-spin">${ICONS.x}</span>`; // Tailwind
+  closeButton.innerHTML = `<span class="w-4 h-4 hover-spin">${ICONS.x}</span>`;
   closeButton.onclick = closeModal;
   headerPanel.append(headerTitleDiv, closeButton);
   panelElement.appendChild(headerPanel);
@@ -282,9 +279,8 @@ function createDOM() {
     <p class="text-xs text-gray-600 hover-fade-in">Deixe seus dados e inicie uma conversa no WhatsApp.</p>`;
   bodyPanel.appendChild(titleSection);
 
-  // Status Message Element
   statusMessageElement = createElement('div', ['mb-3', 'p-2', 'text-sm', 'rounded-lg', 'text-center']);
-  statusMessageElement.style.display = 'none'; // Inicialmente escondido
+  statusMessageElement.style.display = 'none';
   bodyPanel.appendChild(statusMessageElement);
   
   formElement = createElement('form', ['space-y-3']);
@@ -295,25 +291,17 @@ function createDOM() {
   const nameLabel = createElement('label', ['text-sm', 'font-medium', 'text-gray-700', 'hover-label'], { for: 'wlc-name' }, "Nome");
   const nameInputContainer = createElement('div', ['relative', 'hover-input-container']);
   nameInputContainer.innerHTML = `<span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 hover-icon-color transition-colors duration-200">${ICONS.user}</span>`;
-  nameInput = createElement('input', ['pl-10', 'h-10', 'w-full', 'rounded-md', 'border', 'border-input', 'bg-transparent', 'px-3', 'py-2', 'text-sm', 'ring-offset-background', 'file:border-0', 'file:bg-transparent', 'file:text-sm', 'file:font-medium', 'placeholder:text-muted-foreground', 'focus-visible:outline-none', 'focus-visible:ring-2', 'focus-visible:ring-ring', 'focus-visible:ring-offset-2', 'disabled:cursor-not-allowed', 'disabled:opacity-50', 'hover-input-focus'], { id: 'wlc-name', name: 'name', type: 'text', placeholder: 'Seu nome completo', required: true });
+  nameInput = createElement('input', ['pl-10', 'h-10', 'w-full', 'rounded-md', 'border', 'border-input', 'bg-transparent', 'px-3', 'py-2', 'text-sm', 'hover-input-focus'], { id: 'wlc-name', name: 'name', type: 'text', placeholder: 'Seu nome completo', required: true });
   nameInput.oninput = handleInputChange;
   nameInputContainer.appendChild(nameInput);
   nameFieldGroup.append(nameLabel, nameInputContainer);
   formElement.appendChild(nameFieldGroup);
 
-  // Campo Email
-  const emailFieldGroup = createElement('div', ['space-y-1', 'transition-all', 'duration-500', 'hover-field-group', 'opacity-0', 'translate-y-4'], {'data-animate-order': '3'});
-  const emailLabel = createElement('label', ['text-sm', 'font-medium', 'text-gray-700', 'hover-label'], { for: 'wlc-email' }, "E-mail");
-  const emailInputContainer = createElement('div', ['relative', 'hover-input-container']);
-  emailInputContainer.innerHTML = `<span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 hover-icon-color transition-colors duration-200">${ICONS.mail}</span>`;
-  emailInput = createElement('input', ['pl-10', 'h-10', 'w-full', 'rounded-md', 'border', 'border-input', 'bg-transparent', 'px-3', 'py-2', 'text-sm', 'hover-input-focus'], { id: 'wlc-email', name: 'email', type: 'email', placeholder: 'seu@email.com', required: true });
-  emailInput.oninput = handleInputChange;
-  emailInputContainer.appendChild(emailInput);
-  emailFieldGroup.append(emailLabel, emailInputContainer);
-  formElement.appendChild(emailFieldGroup);
+  // ATUALIZADO: Bloco de código do campo de email foi completamente removido.
   
   // Campo Telefone
-  const phoneFieldGroup = createElement('div', ['space-y-1', 'transition-all', 'duration-500', 'hover-field-group', 'opacity-0', 'translate-y-4'], {'data-animate-order': '4'});
+  // ATUALIZADO: A ordem de animação foi ajustada de '4' para '3'
+  const phoneFieldGroup = createElement('div', ['space-y-1', 'transition-all', 'duration-500', 'hover-field-group', 'opacity-0', 'translate-y-4'], {'data-animate-order': '3'});
   const phoneLabel = createElement('label', ['text-sm', 'font-medium', 'text-gray-700', 'hover-label'], { for: 'wlc-phone' }, "Telefone (WhatsApp)");
   const phoneInputContainer = createElement('div', ['relative', 'hover-input-container']);
   phoneInputContainer.innerHTML = `<span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 hover-icon-color transition-colors duration-200">${ICONS.phone}</span>`;
@@ -324,9 +312,9 @@ function createDOM() {
   formElement.appendChild(phoneFieldGroup);
 
   // Botão Submit
-  const submitButtonContainer = createElement('div', ['pt-1', 'transition-all', 'duration-500', 'opacity-0', 'translate-y-4'], {'data-animate-order': '5'});
+  // ATUALIZADO: A ordem de animação foi ajustada de '5' para '4'
+  const submitButtonContainer = createElement('div', ['pt-1', 'transition-all', 'duration-500', 'opacity-0', 'translate-y-4'], {'data-animate-order': '4'});
   submitButton = createElement('button', ['w-full', 'bg-[#25D366]', 'hover:bg-[#20BA5A]', 'text-white', 'font-medium', 'py-2.5', 'transition-all', 'duration-200', 'hover-button-premium', 'inline-flex', 'items-center', 'justify-center', 'rounded-md', 'text-sm'], { type: 'submit' });
-  // Conteúdo inicial do botão (com loader escondido)
   submitButton.innerHTML = `
     <span class="w-4 h-4 mr-2" style="display:none;">${ICONS.loader}</span>
     <span class="w-4 h-4 mr-2 hover-icon-wiggle">${ICONS.messageCircle}</span>
@@ -336,7 +324,8 @@ function createDOM() {
   bodyPanel.appendChild(formElement);
   
   // Texto Informativo
-  const infoTextContainer = createElement('div', ['mt-3', 'pt-3', 'border-t', 'border-gray-100', 'transition-all', 'duration-500', 'hover-info-section', 'opacity-0', 'translate-y-4'], {'data-animate-order': '6'});
+  // ATUALIZADO: A ordem de animação foi ajustada de '6' para '5'
+  const infoTextContainer = createElement('div', ['mt-3', 'pt-3', 'border-t', 'border-gray-100', 'transition-all', 'duration-500', 'hover-info-section', 'opacity-0', 'translate-y-4'], {'data-animate-order': '5'});
   infoTextContainer.innerHTML = `<p class="text-xs text-gray-500 text-center hover-info-text">Ao enviar, seus dados serão registrados e você será redirecionado(a) para o WhatsApp.</p>`;
   bodyPanel.appendChild(infoTextContainer);
   
@@ -345,7 +334,6 @@ function createDOM() {
   mainContainerElement.appendChild(modalElement);
   document.body.appendChild(mainContainerElement);
 
-  // Chamar updateSubmitButtonState para configurar estado inicial do botão
   updateSubmitButtonState();
 }
 
@@ -354,7 +342,7 @@ function loadCSS() {
   const link = document.createElement('link');
   link.rel = 'stylesheet';
   link.type = 'text/css';
-  link.href = CSS_URL; // Usará a constante configurada
+  link.href = CSS_URL;
   document.head.appendChild(link);
 }
 
