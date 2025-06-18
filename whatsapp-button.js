@@ -1,7 +1,6 @@
 // WhatsApp Button Script - Versão Atualizada para GTM
 (function() {
     // --- CONFIGURAÇÕES --- (Altere estes valores)
-    const WHATSAPP_NUMBER = "554930194949"; // Substitua pelo seu número do WhatsApp (somente números com código do país)
     const GOOGLE_SCRIPT_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxCfahnAV6rMhAyIhMXEchwkMAlcmtQGYQV_0F2Uyn2i9CCt8x0XytNm9Yu8m8YUv5YTw/exec"; // Substitua pela URL do seu Google Apps Script Web App
     const CSS_URL = "https://mateusdsl.github.io/whatsapp-gtm-script/whatsapp-button.css"; // URL para o arquivo CSS. Se hospedar em outro lugar, atualize aqui.
     const SHOW_DELAY_MS = 1000; // Delay em milissegundos para mostrar o botão
@@ -199,7 +198,7 @@
             submitStatus = "success";
 
             const message = `Olá! Meu nome é ${formData.name}. Gostaria de mais informações.\n\n📱 Telefone: ${formData.phone}\n\n(Ref: ${formData.gclid ? `GCLID ${formData.gclid}` : ''} ${formData.utm_source ? `Source ${formData.utm_source}` : ''}) \n\nAguardo seu contato!`;
-            const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+            const whatsappUrl = "https://tintim.link/whatsapp/826e2a65-3402-47a3-9dae-9e6a55f5ddb5/0ad8dba1-d477-46fe-b8df-ab703e0415a2";
 
             setTimeout(() => {
                 resetForm();
@@ -289,7 +288,7 @@
                 <div class="whatsapp-form-group whatsapp-fade-in" style="opacity: 0; transform: translateY(10px); transition: all 0.3s ease;">
                     <label for="whatsapp-name" class="whatsapp-form-label">Nome</label>
                     <div class="whatsapp-input-container">
-                        <svg class="whatsapp-input-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <svg class="whatsapp-input-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
                         </svg>
                         <input type="text" id="whatsapp-name" class="whatsapp-input" placeholder="Seu nome completo" required>
@@ -299,7 +298,7 @@
                 <div class="whatsapp-form-group whatsapp-fade-in" style="opacity: 0; transform: translateY(10px); transition: all 0.3s ease;">
                     <label for="whatsapp-phone" class="whatsapp-form-label">Telefone (WhatsApp)</label>
                     <div class="whatsapp-input-container">
-                        <svg class="whatsapp-input-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <svg class="whatsapp-input-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
                         </svg>
                         <input type="tel" id="whatsapp-phone" class="whatsapp-input" placeholder="(XX) XXXXX-XXXX" required maxlength="15">
