@@ -1,4 +1,4 @@
-// WhatsApp Button Script - Versão Atualizada para GTM
+// WhatsApp Button Script - Versão Atualizada para GTM 
 (function() {
     // --- CONFIGURAÇÕES --- (Altere estes valores)
     const GOOGLE_SCRIPT_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxCfahnAV6rMhAyIhMXEchwkMAlcmtQGYQV_0F2Uyn2i9CCt8x0XytNm9Yu8m8YUv5YTw/exec"; // Substitua pela URL do seu Google Apps Script Web App
