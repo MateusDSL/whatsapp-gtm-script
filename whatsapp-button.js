@@ -1,4 +1,4 @@
-// WhatsApp Button Script - Versão com Redirecionamento Imediato para Safari
+// WhatsApp Button Script - Versão com ajuste de visibilidade do botão
 (function() {
     // --- CONFIGURAÇÕES ---
     const GOOGLE_SCRIPT_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxCfahnAV6rMhAyIhMXEchwkMAlcmtQGYQV_0F2Uyn2i9CCt8x0XytNm9Yu8m8YUv5YTw/exec"; // Substitua pela URL do seu Google Apps Script Web App
@@ -54,6 +54,11 @@
 
     function closeModal() {
         if (isClosing) return;
+        
+        // NOVO: Faz o botão reaparecer
+        const fab = document.querySelector('.whatsapp-fab');
+        if (fab) fab.classList.remove('whatsapp-fab-hidden');
+
         isClosing = true;
         const overlay = document.getElementById("whatsapp-modal-overlay");
         const panel = document.getElementById("whatsapp-modal-panel");
@@ -69,6 +74,11 @@
 
     function openModal() {
         if (isModalOpen) return;
+
+        // NOVO: Faz o botão desaparecer
+        const fab = document.querySelector('.whatsapp-fab');
+        if (fab) fab.classList.add('whatsapp-fab-hidden');
+
         isModalOpen = true;
         createModal();
         const overlay = document.getElementById("whatsapp-modal-overlay");
@@ -86,7 +96,6 @@
         }, 50);
     }
 
-    // --- NOVA FUNÇÃO handleSubmit ---
     function handleSubmit(e) {
         e.preventDefault();
         if (isSubmitting) return;
@@ -94,25 +103,20 @@
         const nameInput = document.getElementById("whatsapp-name");
         const phoneInput = document.getElementById("whatsapp-phone");
 
-        // 1. Validar os dados primeiro
         if (!nameInput || !phoneInput || !nameInput.value || phoneInput.value.replace(/\D/g, "").length < 10) {
             setStatus("Por favor, preencha nome e telefone válidos.", "error");
             return;
         }
 
-        // 2. Armazenar os dados
         formData.name = nameInput.value;
         formData.phone = phoneInput.value;
 
-        // 3. Preparar a URL do WhatsApp
         const whatsappUrl = "https://tintim.link/whatsapp/826e2a65-3402-47a3-9dae-9e6a55f5ddb5/0ad8dba1-d477-46fe-b8df-ab703e0415a2";
 
-        // 4. AÇÃO PRINCIPAL: Redirecionar imediatamente!
         window.open(whatsappUrl, "_blank");
 
-        // --- A partir daqui, tudo acontece em segundo plano ---
         isSubmitting = true;
-        setStatus(null); // Limpar qualquer mensagem de erro
+        setStatus(null);
         
         const submitBtn = document.getElementById("whatsapp-submit-btn");
         if (submitBtn) {
@@ -120,7 +124,6 @@
             submitBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="whatsapp-spinner"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>Enviado!`;
         }
 
-        // 5. Preparar e enviar os dados para o Google Script
         const payload = {
             nome: formData.name,
             telefone: formData.phone.replace(/\D/g, ""),
@@ -146,7 +149,6 @@
             console.error("URL do Google Apps Script não configurada!");
         }
 
-        // 6. Fechar o modal após um tempo
         setTimeout(() => {
             closeModal();
             resetForm();
@@ -217,7 +219,7 @@
         document.head.appendChild(link);
         const loadButton = () => setTimeout(createWhatsAppButton, SHOW_DELAY_MS);
         link.onload = loadButton;
-        link.onerror = loadButton; // Garante que o botão carregue mesmo se o CSS falhar
+        link.onerror = loadButton;
         getUrlParams();
     }
 
