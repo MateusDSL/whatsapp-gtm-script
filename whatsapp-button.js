@@ -3,7 +3,7 @@
     // --- CONFIGURAÇÕES ---
     const GOOGLE_SCRIPT_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxCfahnAV6rMhAyIhMXEchwkMAlcmtQGYQV_0F2Uyn2i9CCt8x0XytNm9Yu8m8YUv5YTw/exec";
     const CSS_URL = "https://mateusdsl.github.io/whatsapp-gtm-script/whatsapp-button.css";
-    const SHOW_DELAY_MS = 1000;
+    const SHOW_DELAY_MS = 0;
 
     // --- Variáveis de Estado ---
     let isModalOpen = false;
