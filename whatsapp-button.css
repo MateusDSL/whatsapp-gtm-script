@@ -37,7 +37,7 @@
 /* NOVO: Estilo para o balão de mensagem */
 .whatsapp-cta-bubble {
     background-color: #fff;
-    padding: 20px 29px;
+    padding: 25px 35px;
     border-radius: 16px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     color: var(--whatsapp-text-dark);
