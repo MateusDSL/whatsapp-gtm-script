@@ -2,7 +2,7 @@
 (function() {
     // --- CONFIGURAÇÕES --- (Altere estes valores)
     const GOOGLE_SCRIPT_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxCfahnAV6rMhAyIhMXEchwkMAlcmtQGYQV_0F2Uyn2i9CCt8x0XytNm9Yu8m8YUv5YTw/exec"; // Substitua pela URL do seu Google Apps Script Web App
-    const CSS_URL = "https://mateusdsl.github.io/whatsapp--gtm-script/whatsapp-button.css"; // URL para o arquivo CSS. Se hospedar em outro lugar, atualize aqui.
+    const CSS_URL = "https://mateusdsl.github.io/whatsapp-gtm-script/whatsapp-button.css"; // URL para o arquivo CSS. Se hospedar em outro lugar, atualize aqui.
     const SHOW_DELAY_MS = 1000; // Delay em milissegundos para mostrar o botão
     // --- FIM DAS CONFIGURAÇÕES ---
 
