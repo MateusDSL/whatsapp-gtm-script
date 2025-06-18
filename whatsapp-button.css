@@ -1,10 +1,7 @@
-/* Adicionando uma fonte sans-serif padrão para melhor visualização */
-.whatsapp-lead-capture-container.font-sans, .whatsapp-lead-capture-container .font-sans,
-.whatsapp-lead-capture-container /* Aplicando a fonte a todos os filhos */ {
+/* Estilos para o componente de captura de leads do WhatsApp */
+.font-sans, .font-sans * {
   font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
-
-/* Estilos para o modal e animações (do <style jsx> original) */
 .spring-animation {
   transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease-out;
 }
@@ -21,257 +18,44 @@
   opacity: 0;
   transition: transform 0.3s cubic-bezier(0.76, 0, 0.24, 1), opacity 0.2s ease-in;
 }
-
-/* Animações de entrada para o conteúdo do modal */
-.animate-fade-in-up-1 { animation: fadeInUp 0.5s ease-out 0.1s both; }
-.animate-fade-in-up-2 { animation: fadeInUp 0.5s ease-out 0.15s both; }
-.animate-fade-in-up-3 { animation: fadeInUp 0.5s ease-out 0.2s both; }
-.animate-fade-in-up-4 { animation: fadeInUp 0.5s ease-out 0.25s both; }
-.animate-fade-in-up-5 { animation: fadeInUp 0.5s ease-out 0.3s both; }
-.animate-fade-in-up-6 { animation: fadeInUp 0.5s ease-out 0.35s both; }
-
-/* Micro-interações e Hover Effects (do <style jsx> original) */
-.hover-lift { transition: all 0.3s ease; }
-.hover-lift:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-}
 .hover-float { animation: float 2.5s ease-in-out infinite; }
-.message-circle-icon.hover-rotate { display: inline-block; transition: transform 0.3s ease; }
-button:hover .message-circle-icon.hover-rotate { transform: rotate(10deg) scale(1.1); }
-
 .hover-group:hover .hover-pulse { animation: pulseSimple 1.5s infinite cubic-bezier(0.4, 0, 0.6, 1); }
-.hover-bounce { display: inline-block; transition: transform 0.2s ease; }
+.hover-bounce { transition: transform 0.2s ease; }
 .hover-group:hover .hover-bounce { animation: bounceSoft 0.8s ease; }
-
 .hover-glow { transition: text-shadow 0.3s ease; }
 .hover-group:hover .hover-glow { text-shadow: 0 0 6px rgba(255, 255, 255, 0.5); }
-
-.hover-rotate-close { display: inline-block; transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.hover-rotate-close { transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
 .hover-rotate-close:hover { transform: rotate(90deg) scale(1.1); }
-.hover-rotate-close .hover-spin { display: inline-block; transition: transform 0.3s ease; }
+.hover-spin { transition: transform 0.3s ease; }
 .hover-rotate-close:hover .hover-spin { transform: rotate(90deg); }
-
 .hover-lift-subtle { transition: transform 0.2s ease-out; }
 .hover-lift-subtle:hover { transform: translateY(-2px); }
-
-.hover-lift-subtle:hover .hover-color-shift { color: #128C7E; }
 .hover-color-shift { transition: color 0.2s ease; }
-
-.hover-lift-subtle:hover .hover-fade-in { opacity: 0.7; }
+.hover-lift-subtle:hover .hover-color-shift { color: #128C7E; }
 .hover-fade-in { transition: opacity 0.3s ease; }
-
-.hover-field-group:hover .hover-label { color: #25D366; transform: translateX(1px); }
+.hover-lift-subtle:hover .hover-fade-in { opacity: 0.7; }
 .hover-field-group .hover-label { transition: color 0.2s ease, transform 0.2s ease; }
-
-.hover-field-group:hover .hover-icon-color svg { color: #25D366; } /* Aplicado ao SVG dentro do span */
-.hover-input-container .hover-icon-color svg { transition: color 0.2s ease; }
-
-.hover-input-focus { transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+.hover-field-group:hover .hover-label { color: #25D366; transform: translateX(1px); }
+.hover-input-container .hover-icon-color { transition: color 0.2s ease; }
+.hover-field-group:hover .hover-icon-color { color: #25D366; }
+input.hover-input-focus { transition: border-color 0.2s ease, box-shadow 0.2s ease; }
 input.hover-input-focus:focus,
-.hover-field-group:hover input.hover-input-focus {
-  border-color: #25D366 !important;
-  box-shadow: 0 0 0 2px rgba(37, 211, 102, 0.2) !important;
-}
-
+.hover-field-group:hover input.hover-input-focus { border-color: #25D366 !important; box-shadow: 0 0 0 2px rgba(37, 211, 102, 0.2) !important; }
 .hover-button-premium { transition: transform 0.2s ease-out, box-shadow 0.2s ease-out, background-color 0.2s ease; }
-.hover-button-premium:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 15px rgba(37, 211, 102, 0.25);
-  /* background-color: #20BA5A; -- esta é uma classe de hover, veja abaixo */
-}
-
+.hover-button-premium:hover { transform: translateY(-2px); box-shadow: 0 8px 15px rgba(37, 211, 102, 0.25); }
+.hover-icon-wiggle { display: inline-block; }
 .hover-button-premium:hover .hover-icon-wiggle { animation: wiggleSoft 0.4s ease-in-out; }
-.hover-icon-wiggle { display: inline-block; transition: transform 0.1s ease; }
-
-.hover-button-premium:hover .hover-text-glow { text-shadow: 0 0 5px rgba(255, 255, 255, 0.4); }
 .hover-text-glow { transition: text-shadow 0.3s ease; }
-
-.hover-info-section:hover .hover-info-text { color: #128C7E; transform: scale(1.01); }
+.hover-button-premium:hover .hover-text-glow { text-shadow: 0 0 5px rgba(255, 255, 255, 0.4); }
 .hover-info-section .hover-info-text { transition: color 0.2s ease, transform 0.2s ease; }
+.hover-info-section:hover .hover-info-text { color: #128C7E; transform: scale(1.01); }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-6px); } }
+@keyframes bounceSoft { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-4px) scale(1.05); } }
+@keyframes wiggleSoft { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(-3deg); } 75% { transform: rotate(3deg); } }
+@keyframes pulseSimple { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+.animate-spin { animation: spin 1s linear infinite; }
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-/* --- Keyframes para Animações --- */
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(15px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-6px); }
-}
-@keyframes bounceSoft {
-  0%, 100% { transform: translateY(0) scale(1); }
-  50% { transform: translateY(-4px) scale(1.05); }
-}
-@keyframes wiggleSoft {
-  0%, 100% { transform: rotate(0deg); }
-  25% { transform: rotate(-3deg); }
-  75% { transform: rotate(3deg); }
-}
-@keyframes pulseSimple {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-}
-.animate-pulse { animation: pulseSimple 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; } /* Recriando animate-pulse do Tailwind */
-
-.animate-spin-manual { animation: spin 1s linear infinite; }
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-/* ===== INÍCIO DAS DEFINIÇÕES DE CLASSES DE UTILITÁRIOS (Tradução de Tailwind-like) ===== */
-
-/* --- Layout --- */
-.fixed { position: fixed; }
-.absolute { position: absolute; }
-.relative { position: relative; }
-.inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
-.bottom-0 { bottom: 0; }
-.bottom-6 { bottom: 1.5rem; } /* 24px */
-.right-0 { right: 0; }
-.right-6 { right: 1.5rem; } /* 24px */
-.left-3 { left: 0.75rem; } /* 12px */
-.top-1\/2 { top: 50%; }
-.z-\[99\] { z-index: 99; }
-.z-\[100\] { z-index: 100; }
-
-/* --- Display & Flexbox --- */
-.flex { display: flex; }
-.inline-flex { display: inline-flex; }
-.items-center { align-items: center; }
-.justify-center { justify-content: center; }
-.justify-between { justify-content: space-between; }
-
-/* --- Sizing --- */
-.w-full { width: 100%; }
-.w-14 { width: 3.5rem; } /* 56px */
-.w-8 { width: 2rem; } /* 32px */
-.w-6 { width: 1.5rem; } /* 24px */
-.w-4 { width: 1rem; } /* 16px */
-.h-auto { height: auto; }
-.h-14 { height: 3.5rem; } /* 56px */
-.h-10 { height: 2.5rem; } /* 40px */
-.h-8 { height: 2rem; } /* 32px */
-.h-6 { height: 1.5rem; } /* 24px */
-.h-4 { height: 1rem; } /* 16px */
-.max-w-sm { max-width: 24rem; } /* 384px */
-
-/* --- Spacing (Padding & Margin) --- */
-.p-0 { padding: 0; }
-.p-2 { padding: 0.5rem; } /* 8px */
-.p-3 { padding: 0.75rem; } /* 12px */
-.pt-1 { padding-top: 0.25rem; } /* 4px */
-.pt-3 { padding-top: 0.75rem; } /* 12px */
-.px-3 { padding-left: 0.75rem; padding-right: 0.75rem; }
-.py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
-.py-2\.5 { padding-top: 0.625rem; padding-bottom: 0.625rem; } /* 10px */
-.pl-10 { padding-left: 2.5rem; } /* 40px */
-.mb-1 { margin-bottom: 0.25rem; } /* 4px */
-.mb-3 { margin-bottom: 0.75rem; } /* 12px */
-.mb-4 { margin-bottom: 1rem; } /* 16px */
-.mr-2 { margin-right: 0.5rem; } /* 8px */
-.mt-3 { margin-top: 0.75rem; } /* 12px */
-.space-x-3 > * + * { margin-left: 0.75rem; }
-.space-y-1 > * + * { margin-top: 0.25rem; }
-.space-y-3 > * + * { margin-top: 0.75rem; }
-
-/* --- Typography --- */
-.text-xs { font-size: 0.75rem; line-height: 1rem; } /* 12px */
-.text-sm { font-size: 0.875rem; line-height: 1.25rem; } /* 14px */
-.text-base { font-size: 1rem; line-height: 1.5rem; } /* 16px */
-.text-lg { font-size: 1.125rem; line-height: 1.75rem; } /* 18px */
-.font-medium { font-weight: 500; }
-.font-semibold { font-weight: 600; }
-.text-white { color: #ffffff; }
-.text-gray-400 { color: #9ca3af; }
-.text-gray-500 { color: #6b7280; }
-.text-gray-600 { color: #4b5563; }
-.text-gray-700 { color: #374151; }
-.text-gray-900 { color: #111827; }
-.text-blue-700 { color: #1d4ed8; }
-.text-green-700 { color: #047857; }
-.text-red-700 { color: #b91c1c; }
-.text-center { text-align: center; }
-.placeholder\:text-muted-foreground::placeholder { color: #6b7280; } /* Assumindo muted-foreground = gray-500 */
-
-/* --- Backgrounds --- */
-.bg-black { background-color: #000000; }
-.bg-white { background-color: #ffffff; }
-.bg-transparent { background-color: transparent; }
-.bg-\[\#25D366\] { background-color: #25D366; }
-.hover\:bg-\[\#20BA5A\]:hover { background-color: #20BA5A; }
-.bg-opacity-20 { background-color: rgba(255, 255, 255, 0.2); } /* Ex: white com 20% opacidade */
-.bg-blue-100 { background-color: #dbeafe; }
-.bg-green-100 { background-color: #d1fae5; }
-.bg-red-100 { background-color: #fee2e2; }
-
-/* --- Borders --- */
-.border { border-width: 1px; }
-.border-b { border-bottom-width: 1px; }
-.border-t { border-top-width: 1px; }
-.border-input { border-color: #d1d5db; } /* Default border color for inputs, adjust if needed */
-.border-gray-100 { border-color: #f3f4f6; }
-.border-gray-200 { border-color: #e5e7eb; }
-.border-blue-200 { border-color: #bfdbfe; }
-.border-green-200 { border-color: #a7f3d0; }
-.border-red-200 { border-color: #fecaca; }
-.rounded-md { border-radius: 0.375rem; } /* 6px */
-.rounded-lg { border-radius: 0.5rem; } /* 8px */
-.rounded-full { border-radius: 9999px; }
-.rounded-tl-3xl { border-top-left-radius: 1.5rem; } /* 24px */
-.rounded-bl-3xl { border-bottom-left-radius: 1.5rem; } /* 24px */
-
-/* --- Effects (Shadows, Opacity) --- */
-.shadow-lg { box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05); }
-.hover\:shadow-xl:hover { box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04); }
-.shadow-2xl { box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); }
-.opacity-0 { opacity: 0; }
-.opacity-30 { opacity: 0.3; } /* Usado no overlay do modal */
-.disabled\:opacity-50:disabled { opacity: 0.5; }
-
-/* --- Transitions & Transforms --- */
-.transition-all { transition-property: all; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms; } /* Default Tailwind duration */
-.transition-opacity { transition-property: opacity; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms; }
-.transition-colors { transition-property: color, background-color, border-color, text-decoration-color, fill, stroke; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms;}
-.duration-200 { transition-duration: 200ms; }
-.duration-300 { transition-duration: 300ms; }
-.duration-500 { transition-duration: 500ms; }
-.transform { 
-    transform: translateX(var(--tw-translate-x, 0)) translateY(var(--tw-translate-y, 0)) rotate(var(--tw-rotate, 0)) skewX(var(--tw-skew-x, 0)) skewY(var(--tw-skew-y, 0)) scaleX(var(--tw-scale-x, 1)) scaleY(var(--tw-scale-y, 1));
-} /* Base para transforms */
-.-translate-y-1\/2 { --tw-translate-y: -50%; transform: translateX(var(--tw-translate-x, 0)) translateY(var(--tw-translate-y, 0)) rotate(var(--tw-rotate, 0)) skewX(var(--tw-skew-x, 0)) skewY(var(--tw-skew-y, 0)) scaleX(var(--tw-scale-x, 1)) scaleY(var(--tw-scale-y, 1)); }
-.translate-y-4 { --tw-translate-y: 1rem; transform: translateX(var(--tw-translate-x, 0)) translateY(var(--tw-translate-y, 0)) rotate(var(--tw-rotate, 0)) skewX(var(--tw-skew-x, 0)) skewY(var(--tw-skew-y, 0)) scaleX(var(--tw-scale-x, 1)) scaleY(var(--tw-scale-y, 1)); }
-.hover\:scale-110:hover { --tw-scale-x: 1.1; --tw-scale-y: 1.1; transform: translateX(var(--tw-translate-x, 0)) translateY(var(--tw-translate-y, 0)) rotate(var(--tw-rotate, 0)) skewX(var(--tw-skew-x, 0)) skewY(var(--tw-skew-y, 0)) scaleX(var(--tw-scale-x, 1)) scaleY(var(--tw-scale-y, 1)); }
-
-/* --- Interactivity --- */
-.disabled\:cursor-not-allowed:disabled { cursor: not-allowed; }
-
-/* --- Focus Ring & Outline (Simplificado) --- */
-/* As classes focus-visible: do Tailwind são complexas e geralmente usam box-shadow para anéis. */
-/* Esta é uma simplificação. Para anéis fiéis, seria necessário mais CSS. */
-.focus-visible\:outline-none:focus-visible { outline: 2px solid transparent; outline-offset: 2px; }
-/* Classes como ring-offset-background, focus-visible:ring-2, focus-visible:ring-ring, focus-visible:ring-offset-2
-   são parte de um sistema de anel de foco mais robusto do Tailwind. Implementá-las fielmente aqui
-   seria extenso. O ::focus-visible acima é um fallback básico. */
-.ring-offset-background {} /* Normalmente define uma variável CSS para a cor do offset */
-
-/* --- File Input Styling Resets (from Tailwind) --- */
-.file\:border-0::-webkit-file-upload-button { border: 0; }
-.file\:border-0::file-selector-button { border: 0; }
-.file\:bg-transparent::-webkit-file-upload-button { background-color: transparent; }
-.file\:bg-transparent::file-selector-button { background-color: transparent; }
-.file\:text-sm::-webkit-file-upload-button { font-size: 0.875rem; }
-.file\:text-sm::file-selector-button { font-size: 0.875rem; }
-.file\:font-medium::-webkit-file-upload-button { font-weight: 500; }
-.file\:font-medium::file-selector-button { font-weight: 500; }
-
-
-/* --- Responsive --- */
-@media (min-width: 768px) { /* Corresponde ao prefixo 'md:' do Tailwind */
-  .md\:rounded-bl-none {
-    border-bottom-left-radius: 0;
-  }
-}
-
-/* ===== FIM DAS DEFINIÇÕES DE CLASSES DE UTILITÁRIOS ===== */
+/* Classes de Utilitários (simulando Tailwind) */
+.fixed{position:fixed}.absolute{position:absolute}.relative{position:relative}.inset-0{top:0;right:0;bottom:0;left:0}.bottom-6{bottom:1.5rem}.right-6{right:1.5rem}.left-3{left:.75rem}.top-1\/2{top:50%}.z-\[99\]{z-index:99}.z-\[100\]{z-index:100}.flex{display:flex}.inline-flex{display:inline-flex}.items-center{align-items:center}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.w-full{width:100%}.w-14{width:3.5rem}.w-8{width:2rem}.w-7{width:1.75rem}.w-5{width:1.25rem}.w-4{width:1rem}.h-14{height:3.5rem}.h-10{height:2.5rem}.h-8{height:2rem}.h-7{height:1.75rem}.h-5{height:1.25rem}.h-4{width:1rem}.max-w-sm{max-width:24rem}.p-0{padding:0}.p-3{padding:.75rem}.p-2{padding:.5rem}.pt-1{padding-top:.25rem}.pt-3{padding-top:.75rem}.pl-10{padding-left:2.5rem}.py-2\.5{padding-top:.625rem;padding-bottom:.625rem}.px-3{padding-left:.75rem;padding-right:.75rem}.mb-1{margin-bottom:.25rem}.mb-3{margin-bottom:.75rem}.mb-4{margin-bottom:1rem}.mr-2{margin-right:.5rem}.mt-3{margin-top:.75rem}.space-x-3>*{margin-left:.75rem}.space-y-1>*{margin-top:.25rem}.space-y-3>*{margin-top:.75rem}.text-xs{font-size:.75rem}.text-sm{font-size:.875rem}.text-base{font-size:1rem}.text-lg{font-size:1.125rem}.font-medium{font-weight:500}.font-semibold{font-weight:600}.text-white{color:#fff}.text-gray-400{color:#9ca3af}.text-gray-600{color:#4b5563}.text-gray-700{color:#374151}.text-gray-900{color:#111827}.bg-black{background-color:#000}.bg-white{background-color:#fff}.bg-transparent{background-color:transparent}.bg-\[\#25D366\]{background-color:#25D366}.bg-opacity-20{background-color:rgba(255,255,255,.2)}.hover\:bg-\[\#128C7E\]:hover{background-color:#128C7E}.hover\:bg-\[\#20BA5A\]:hover{background-color:#20BA5A}.hover\:bg-white:hover{background-color:#fff}.hover\:bg-opacity-20:hover{background-color:rgba(255,255,255,.2)}.border{border-width:1px}.border-b{border-bottom-width:1px}.border-t{border-top-width:1px}.border-gray-100{border-color:#f3f4f6}.border-gray-200{border-color:#e5e7eb}.border-input{border-color:#d1d5db}.rounded-md{border-radius:.375rem}.rounded-lg{border-radius:.5rem}.rounded-full{border-radius:9999px}.rounded-tl-3xl{border-top-left-radius:1.5rem}.rounded-bl-3xl{border-bottom-left-radius:1.5rem}.md\:rounded-bl-none{border-bottom-left-radius:0}.shadow-lg{box-shadow:0 10px 15px -3px rgba(0,0,0,.1),0 4px 6px -2px rgba(0,0,0,.05)}.shadow-2xl{box-shadow:0 25px 50px -12px rgba(0,0,0,.25)}.hover\:shadow-xl:hover{box-shadow:0 20px 25px -5px rgba(0,0,0,.1),0 10px 10px -5px rgba(0,0,0,.04)}.opacity-0{opacity:0}.opacity-30{opacity:.3}.transition-all{transition-property:all;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:150ms}.transition-opacity{transition-property:opacity}.duration-300{transition-duration:300ms}.hover\:scale-110:hover{transform:scale(1.1)}.transform{transform:translateX(var(--tw-translate-x,0)) translateY(var(--tw-translate-y,0))}.-translate-y-1\/2{transform:translateY(-50%)}.translate-y-4{transform:translateY(1rem)}.disabled\:opacity-50:disabled{opacity:.5}.disabled\:pointer-events-none:disabled{pointer-events:none}.text-center{text-align:center}.bg-green-100{background-color:#d1fae5}.text-green-700{color:#047857}.border-green-200{border-color:#a7f3d0}.bg-red-100{background-color:#fee2e2}.text-red-700{color:#b91c1c}.border-red-200{border-color:#fecaca}.bg-blue-100{background-color:#dbeafe}.text-blue-700{color:#1d4ed8}.border-blue-200{border-color:#bfdbfe}
