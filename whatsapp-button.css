@@ -72,9 +72,9 @@
   flex-shrink: 0;
 }
 
+/* APAGUE ESTE BLOCO INTEIRO */
 .whatsapp-fab:hover {
-  background-color: var(--whatsapp-green-dark);
-  transform: scale(1.1);
+  transform: scale(1.1); 
 }
 
 .whatsapp-fab svg {
