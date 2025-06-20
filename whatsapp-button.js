@@ -182,37 +182,31 @@
     }
 
     // --- Inicialização ---
-    function init() {
-        const link = document.createElement("link");
-        link.rel = "stylesheet";
-        link.href = CSS_URL;
-        document.head.appendChild(link);
-        
-        const loadWidget = () => {
-            createWidget();
-            setTimeout(() => {
-                const widgetWrapper = document.querySelector('.whatsapp-widget-wrapper');
-                if (widgetWrapper) widgetWrapper.classList.add('show');
-            }, SHOW_DELAY_MS);
+function init() {
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = CSS_URL;
+    document.head.appendChild(link);
+    
+    const loadWidget = () => {
+        createWidget();
+        setTimeout(() => {
+            const widgetWrapper = document.querySelector('.whatsapp-widget-wrapper');
+            if (widgetWrapper) widgetWrapper.classList.add('show');
+        }, SHOW_DELAY_MS);
 
-            setTimeout(() => {
-        const messageBubble = document.querySelector('.whatsapp-cta-bubble');
-        if (messageBubble) {
-            // Adiciona uma classe para iniciar a animação de desaparecimento
-            messageBubble.classList.add('hiding');
+        // CÓDIGO ADICIONADO: Esconde o balão de CTA após 10 segundos
+        setTimeout(() => {
+            const messageBubble = document.querySelector('.whatsapp-cta-bubble');
+            if (messageBubble) {
+                // Adiciona uma classe para iniciar a animação de desaparecimento
+                messageBubble.classList.add('hiding');
+            }
+        }, 10000); // 10000 milissegundos = 10 segundos
+    };
+    
+    link.onload = loadWidget;
+    link.onerror = loadWidget;
+    getUrlParams();
+}
 
-        };
-
-        
-        
-        link.onload = loadWidget;
-        link.onerror = loadWidget;
-        getUrlParams();
-    }
-
-    if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", init);
-    } else {
-        init();
-    }
-})();
