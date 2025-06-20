@@ -150,3 +150,5 @@
 .whatsapp-slide-in-active{transform:translateX(0)}
 .whatsapp-slide-out{transform:translateX(100%)}
 @media (max-width: 480px){.whatsapp-cta-bubble{display:none} .whatsapp-widget-wrapper{gap:0}}
+
+<!-- end list -->
