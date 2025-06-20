@@ -181,3 +181,29 @@
         }
     }
 
+    // --- Inicialização ---
+    function init() {
+        const link = document.createElement("link");
+        link.rel = "stylesheet";
+        link.href = CSS_URL;
+        document.head.appendChild(link);
+        
+        const loadWidget = () => {
+            createWidget();
+            setTimeout(() => {
+                const widgetWrapper = document.querySelector('.whatsapp-widget-wrapper');
+                if (widgetWrapper) widgetWrapper.classList.add('show');
+            }, SHOW_DELAY_MS);
+        };
+        
+        link.onload = loadWidget;
+        link.onerror = loadWidget;
+        getUrlParams();
+    }
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", init);
+    } else {
+        init();
+    }
+})();
