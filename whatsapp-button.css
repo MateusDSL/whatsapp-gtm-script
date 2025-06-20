@@ -94,6 +94,26 @@
   transition: opacity 0.3s ease;
 }
 
+/* CÓDIGO ADICIONADO: Animação e classe para esconder o balão */
+
+/* A classe 'hiding' aciona a animação de desaparecimento */
+.whatsapp-cta-bubble.hiding {
+    animation: cta-bubble-fade-out 0.5s ease forwards;
+}
+
+/* A animação que faz o balão desaparecer */
+@keyframes cta-bubble-fade-out {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(10px);
+        visibility: hidden; /* Garante que o elemento não seja mais visível ou clicável */
+    }
+}
+
 /* ... O resto do CSS para o modal permanece o mesmo ... */
 
 .whatsapp-modal-panel{position:absolute;right:0;bottom:0;height:auto;width:100%;max-width:384px;background-color:white;box-shadow:0 10px 25px -5px rgba(0,0,0,.1);border-top-left-radius:24px;border-bottom-left-radius:24px;transition:transform .3s ease}
