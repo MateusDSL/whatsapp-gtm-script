@@ -194,7 +194,16 @@
                 const widgetWrapper = document.querySelector('.whatsapp-widget-wrapper');
                 if (widgetWrapper) widgetWrapper.classList.add('show');
             }, SHOW_DELAY_MS);
+
+            setTimeout(() => {
+        const messageBubble = document.querySelector('.whatsapp-cta-bubble');
+        if (messageBubble) {
+            // Adiciona uma classe para iniciar a animação de desaparecimento
+            messageBubble.classList.add('hiding');
+
         };
+
+        
         
         link.onload = loadWidget;
         link.onerror = loadWidget;
