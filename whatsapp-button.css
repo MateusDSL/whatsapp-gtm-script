@@ -18,7 +18,7 @@
 /* NOVO: Wrapper para o widget (botão + balão) */
 .whatsapp-widget-wrapper {
     position: fixed;
-    bottom: 95px;
+    bottom: 110px;
     right: 24px;
     display: flex;
     align-items: center;
@@ -53,10 +53,10 @@
   position: relative;
   
   /* GARANTIA DE TAMANHO: Força o botão a nunca encolher */
-  width: 65px;
-  height: 65px;
-  min-width: 65px;
-  min-height: 65px;
+  width: 56px;
+  height: 56px;
+  min-width: 56px;
+  min-height: 56px;
   
   border-radius: 50%;
   background-color: var(--whatsapp-green);
@@ -78,8 +78,8 @@
 }
 
 .whatsapp-fab svg {
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
 }
 
 /* Modal Overlay (ATUALIZADO) */
