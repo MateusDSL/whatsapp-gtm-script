@@ -18,7 +18,7 @@
 /* NOVO: Wrapper para o widget (botão + balão) */
 .whatsapp-widget-wrapper {
     position: fixed;
-    bottom: 70px;
+    bottom: 74px;
     right: 24px;
     display: flex;
     align-items: center;
