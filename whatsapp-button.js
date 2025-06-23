@@ -113,6 +113,13 @@
         window.open(whatsappUrl, "_blank");
         isSubmitting = true;
         setStatus(null);
+
+        if (typeof dataLayer !== 'undefined') {
+  dataLayer.push({
+    'event': 'whatsapp_lead_submitted' 
+  });
+}
+        
         const submitBtn = document.getElementById("whatsapp-submit-btn");
         if (submitBtn) {
             submitBtn.disabled = true;
