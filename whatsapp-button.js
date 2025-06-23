@@ -96,17 +96,23 @@
         }, 50);
     }
 
-    function handleSubmit(e) {
-        e.preventDefault();
-        if (isSubmitting) return;
+   function handleSubmit(e) {
+    e.preventDefault();
+    if (isSubmitting) return;
 
-        const nameInput = document.getElementById("whatsapp-name");
-        const phoneInput = document.getElementById("whatsapp-phone");
+    const nameInput = document.getElementById("whatsapp-name");
+    const phoneInput = document.getElementById("whatsapp-phone");
 
-        if (!nameInput || !phoneInput || !nameInput.value || phoneInput.value.replace(/\D/g, "").length < 10) {
-            setStatus("Por favor, preencha nome e telefone válidos.", "error");
-            return;
-        }
+    if (!nameInput || !phoneInput || !nameInput.value || phoneInput.value.replace(/\D/g, "").length < 10) {
+        setStatus("Por favor, preencha nome e telefone válidos.", "error");
+        return;
+    }
+       
+    if (typeof dataLayer !== 'undefined') {
+      dataLayer.push({
+        'event': 'whatsapp_lead_submitted'
+      });
+    }
         formData.name = nameInput.value;
         formData.phone = phoneInput.value;
         const whatsappUrl = "https://tintim.link/whatsapp/826e2a65-3402-47a3-9dae-9e6a55f5ddb5/0ad8dba1-d477-46fe-b8df-ab703e0415a2";
