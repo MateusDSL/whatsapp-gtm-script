@@ -101,11 +101,13 @@
   align-items: flex-start !important;
 }
 
-/* Altera a posição do painel branco */
+/* Altera a posição do painel branco (agora com alinhamento à esquerda) */
 .whatsapp-modal-panel.modal-at-top {
   top: 24px !important;
   bottom: auto !important;
-  border-radius: 24px !important; /* Arredonda todos os cantos */
+  left: 24px !important;
+  right: auto !important;
+  border-radius: 24px !important;
 }
 
 /* ... O resto do CSS para o modal permanece o mesmo ... */
