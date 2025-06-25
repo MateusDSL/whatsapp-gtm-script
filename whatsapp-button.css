@@ -96,17 +96,15 @@
 
 /* --- NOVAS REGRAS PARA POSIÇÃO CONDICIONAL NO TOPO --- */
 
-/* Altera o alinhamento do container geral */
+/* Altera o alinhamento do container geral para o topo */
 .whatsapp-modal-overlay.align-top {
   align-items: flex-start !important;
 }
 
-/* Altera a posição do painel branco (agora com alinhamento à esquerda) */
+/* Altera a posição vertical do painel branco */
 .whatsapp-modal-panel.modal-at-top {
   top: 24px !important;
   bottom: auto !important;
-  left: 24px !important;
-  right: auto !important;
   border-radius: 24px !important;
 }
 
