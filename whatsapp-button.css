@@ -94,25 +94,6 @@
   transition: opacity 0.3s ease;
 }
 
-/* --- ANIMAÇÃO CONDICIONAL VINDO DE CIMA --- */
-/* Este é o ÚNICO bloco que você precisa adicionar ao final do seu CSS original.
-   As regras de posição (.modal-at-top) foram removidas daqui
-   porque elas serão controladas pelo script no GTM. */
-
-/* Define o estado INICIAL (acima da tela) para a nossa animação */
-.whatsapp-modal-panel.animate-from-top.whatsapp-slide-in {
-  transform: translateY(-110%) !important;
-}
-
-/* Define o estado FINAL (visível) para a nossa animação */
-.whatsapp-modal-panel.animate-from-top.whatsapp-slide-in-active {
-  transform: translateY(0) !important;
-}
-
-/* Define a animação de SAÍDA (para cima) */
-.whatsapp-modal-panel.animate-from-top.whatsapp-slide-out {
-  transform: translateY(-110%) !important;
-}
 /* ... O resto do CSS para o modal permanece o mesmo ... */
 
 .whatsapp-modal-panel{position:absolute;right:0;bottom:0;height:auto;width:100%;max-width:384px;background-color:white;box-shadow:0 10px 25px -5px rgba(0,0,0,.1);border-top-left-radius:24px;border-bottom-left-radius:24px;transition:transform .3s ease}
