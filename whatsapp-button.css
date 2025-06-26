@@ -94,18 +94,15 @@
   transition: opacity 0.3s ease;
 }
 
-/* --- NOVAS REGRAS PARA POSIÇÃO CONDICIONAL NO TOPO --- */
+/* --- REGRAS DEFINITIVAS PARA POSIÇÃO CONDICIONAL NO TOPO DIREITO --- */
 
-/* Altera o alinhamento do container geral para o topo */
 .whatsapp-modal-overlay.align-top {
   align-items: flex-start !important;
 }
 
-/* Altera a posição vertical do painel branco */
 .whatsapp-modal-panel.modal-at-top {
-  top: 24px !important;
-  bottom: auto !important;
-  border-radius: 24px !important;
+  top: 24px !important;    /* Puxa o painel para 24px do topo */
+  bottom: auto !important; 
 }
 
 /* ... O resto do CSS para o modal permanece o mesmo ... */
