@@ -1,4 +1,4 @@
-// WhatsApp Button Script - Versão Final com GTM e Mensagem de CTA
+// WhatsApp Button Script - Versão Final com GTM, Mensagem de CTA e Rastreamento Dinâmico
 (function() {
     // --- CONFIGURAÇÕES ---
     const GOOGLE_SCRIPT_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxxFYzWMDVTdEWtfSa-WCuqMuRwQJFnqS1za2ivkVNffz-NbMZ2r1V5BSGUV5AxpdZVHw/exec";
@@ -111,9 +111,25 @@
 
         formData.name = nameInput.value;
         formData.phone = phoneInput.value;
-        const whatsappUrl = "https://tintim.link/whatsapp/826e2a65-3402-47a3-9dae-9e6a55f5ddb5/0ad8dba1-d477-46fe-b8df-ab703e0415a2";
-        window.open(whatsappUrl, "_blank");
-        
+
+        // --- INÍCIO DA ALTERAÇÃO ---
+        const baseUrl = "https://tintim.link/whatsapp/826e2a65-3402-47a3-9dae-9e6a55f5ddb5/0ad8dba1-d477-46fe-b8df-ab703e0415a2";
+        const trackingParams = new URLSearchParams();
+
+        // Adiciona os parâmetros de rastreamento apenas se eles existirem
+        if (formData.gclid) trackingParams.append('gclid', formData.gclid);
+        if (formData.utm_source) trackingParams.append('utm_source', formData.utm_source);
+        if (formData.utm_medium) trackingParams.append('utm_medium', formData.utm_medium);
+        if (formData.utm_campaign) trackingParams.append('utm_campaign', formData.utm_campaign);
+        if (formData.utm_term) trackingParams.append('utm_term', formData.utm_term);
+        if (formData.utm_content) trackingParams.append('utm_content', formData.utm_content);
+
+        // Constrói a URL final
+        const finalUrl = `${baseUrl}?${trackingParams.toString()}`;
+
+        window.open(finalUrl, "_blank");
+        // --- FIM DA ALTERAÇÃO ---
+
         isSubmitting = true;
         setStatus(null);
         
