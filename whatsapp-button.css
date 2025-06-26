@@ -109,21 +109,18 @@
   border-radius: 24px !important;
 }
 
-/* --- NOVAS REGRAS DE ANIMAÇÃO VERTICAL --- */
-/* Estas regras só se aplicam quando o modal está configurado para o topo */
-
-/* Define o estado inicial da animação (escondido acima da tela) */
-.whatsapp-modal-panel.modal-at-top.whatsapp-slide-in {
+/* Define o estado INICIAL (acima da tela) para a nossa animação */
+.whatsapp-modal-panel.animate-from-top.whatsapp-slide-in {
   transform: translateY(-110%) !important;
 }
 
-/* Define o estado final da animação (visível na tela) */
-.whatsapp-modal-panel.modal-at-top.whatsapp-slide-in-active {
+/* Define o estado FINAL (visível) para a nossa animação */
+.whatsapp-modal-panel.animate-from-top.whatsapp-slide-in-active {
   transform: translateY(0) !important;
 }
 
-/* Define a animação de saída (deslizando para cima) */
-.whatsapp-modal-panel.modal-at-top.whatsapp-slide-out {
+/* Define a animação de SAÍDA (para cima) */
+.whatsapp-modal-panel.animate-from-top.whatsapp-slide-out {
   transform: translateY(-110%) !important;
 }
 
