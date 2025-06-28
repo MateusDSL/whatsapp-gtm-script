@@ -3,7 +3,7 @@
     // --- CONFIGURAÇÕES ---
     const GOOGLE_SCRIPT_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxxFYzWMDVTdEWtfSa-WCuqMuRwQJFnqS1za2ivkVNffz-NbMZ2r1V5BSGUV5AxpdZVHw/exec";
     const SUPABASE_URL = 'https://hdqrcmxiyanhqligzrpv.supabase.co'; // Sua URL
-    const SUPABASE_ANON_KEY = 'SUA_CHAVE_ANON_PUBLIC_AQUI'; // Sua chave
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhkcXJjbXhpeWFuaHFsaWd6cnB2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTExMzE0NTYsImV4cCI6MjA2NjcwNzQ1Nn0.efbHgndvp-SHT1TjbjjbXht76Y_fUcRxAPiqeGmCpZU'; // Sua chave
     const CSS_URL = "https://mateusdsl.github.io/whatsapp-gtm-script/whatsapp-button.css";
     const SHOW_DELAY_MS = 0;
 
