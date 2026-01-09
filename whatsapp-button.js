@@ -1,4 +1,4 @@
-// WhatsApp Button Script - VERSÃO FINAL CORRIGIDA
+// WhatsApp Button Script - VERSÃO SEGURA (Correção de Carregamento)
 (function() {
     // --- CONFIGURAÇÕES ---
     const GOOGLE_SCRIPT_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxxFYzWMDVTdEWtfSa-WCuqMuRwQJFnqS1za2ivkVNffz-NbMZ2r1V5BSGUV5AxpdZVHw/exec";
@@ -8,10 +8,6 @@
     const WHATSAPP_BASE_URL = "https://tintim.link/whatsapp/826e2a65-3402-47a3-9dae-9e6a55f5ddb5/0ad8dba1-d477-46fe-b8df-ab703e0415a2";
     const SHOW_DELAY_MS = 0;
     const EXPIRATION_TIME_IN_MINUTES = 10;
-
-    // --- INICIALIZAÇÃO DO SUPABASE ---
-    const { createClient } = supabase;
-    const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
     // --- Variáveis de Estado ---
     let isModalOpen = false;
@@ -57,7 +53,6 @@
         window.open(finalUrl, "_blank");
     }
 
-    // **FUNÇÃO CORRIGIDA**
     function closeModal() {
         if (isClosing) return;
         isClosing = true;
@@ -73,19 +68,16 @@
             isClosing = false;
             const container = document.getElementById("whatsapp-modal-container");
             if (container) container.remove();
-
-            // **A CORREÇÃO ESTÁ AQUI**
-            // Garante que o botão principal volta a aparecer
             if (widgetWrapper) {
                 widgetWrapper.classList.add('show');
             }
-        }, 300); // Duração da animação de fecho
+        }, 300);
     }
 
     function openModal() {
         if (isModalOpen) return;
         const widgetWrapper = document.querySelector('.whatsapp-widget-wrapper');
-        if (widgetWrapper) widgetWrapper.classList.remove('show'); // Esconde o botão
+        if (widgetWrapper) widgetWrapper.classList.remove('show');
         isModalOpen = true;
         createModal();
         
@@ -123,6 +115,7 @@
         formData.name = nameInput.value;
         formData.phone = phoneInput.value;
         
+        // Abre o WhatsApp imediatamente para melhor UX
         redirectToWhatsApp();
 
         isSubmitting = true;
@@ -134,18 +127,28 @@
             submitBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="whatsapp-spinner"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>Enviado!`;
         }
         
+       // --- INICIALIZAÇÃO SEGURA DO SUPABASE ---
+       // Só tentamos conectar agora, garantindo que a biblioteca já carregou
        try {
-            const { error } = await supabaseClient.from('leads').insert([{ 
-                name: formData.name, 
-                phone: formData.phone,
-                gclid: formData.gclid,
-                utm_source: formData.utm_source,
-                utm_medium: formData.utm_medium,
-                utm_campaign: formData.utm_campaign,
-                utm_term: formData.utm_term,
-                utm_content: formData.utm_content
-            }]);
-            if (error) { throw error; }
+            if (typeof supabase !== 'undefined') {
+                const { createClient } = supabase;
+                const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                
+                const { error } = await supabaseClient.from('leads').insert([{ 
+                    name: formData.name, 
+                    phone: formData.phone,
+                    gclid: formData.gclid,
+                    utm_source: formData.utm_source,
+                    utm_medium: formData.utm_medium,
+                    utm_campaign: formData.utm_campaign,
+                    utm_term: formData.utm_term,
+                    utm_content: formData.utm_content
+                }]);
+                if (error) { throw error; }
+                console.log("Lead salvo no Supabase");
+            } else {
+                console.warn("Biblioteca Supabase não carregada. Salvando apenas localmente/backup.");
+            }
 
             const submission = { submitted: true, timestamp: new Date().getTime() };
             localStorage.setItem('whatsappLeadSubmission', JSON.stringify(submission));
@@ -154,6 +157,7 @@
             console.error("Erro ao enviar para o Supabase:", error.message);
         }
 
+        // Envio Backup (Google Sheets)
         const payload = { nome: formData.name, telefone: formData.phone.replace(/\D/g, ""), gclid: formData.gclid, utm_source: formData.utm_source, utm_medium: formData.utm_medium, utm_campaign: formData.utm_campaign, utm_term: formData.utm_term, utm_content: formData.utm_content };
         if (GOOGLE_SCRIPT_WEB_APP_URL) {
             fetch(GOOGLE_SCRIPT_WEB_APP_URL, { method: "POST", mode: "no-cors", cache: "no-cache", redirect: "follow", body: JSON.stringify(payload) })
@@ -173,18 +177,22 @@
         container.innerHTML = '';
         
         let leadSubmittedWithinExpiration = false;
-        const submissionDataString = localStorage.getItem('whatsappLeadSubmission');
+        try {
+            const submissionDataString = localStorage.getItem('whatsappLeadSubmission');
+            if (submissionDataString) {
+                const submissionData = JSON.parse(submissionDataString);
+                const expirationInMs = EXPIRATION_TIME_IN_MINUTES * 60 * 1000;
+                const timeSinceSubmission = new Date().getTime() - submissionData.timestamp;
 
-        if (submissionDataString) {
-            const submissionData = JSON.parse(submissionDataString);
-            const expirationInMs = EXPIRATION_TIME_IN_MINUTES * 60 * 1000;
-            const timeSinceSubmission = new Date().getTime() - submissionData.timestamp;
-
-            if (timeSinceSubmission < expirationInMs) {
-                leadSubmittedWithinExpiration = true;
-            } else {
-                localStorage.removeItem('whatsappLeadSubmission');
+                if (timeSinceSubmission < expirationInMs) {
+                    leadSubmittedWithinExpiration = true;
+                } else {
+                    localStorage.removeItem('whatsappLeadSubmission');
+                }
             }
+        } catch (e) {
+            console.warn("Erro ao ler localStorage", e);
+            localStorage.removeItem('whatsappLeadSubmission');
         }
 
         const widgetWrapper = document.createElement("div");
@@ -289,8 +297,17 @@
             }, SHOW_DELAY_MS);
         };
         
+        // Garante que o loadWidget rode mesmo se o CSS já estiver em cache ou der erro
         link.onload = loadWidget;
         link.onerror = loadWidget;
+        
+        // Fallback: Se o CSS demorar mais de 1s, mostra o widget mesmo assim (sem estilo é melhor que nada)
+        setTimeout(() => {
+             if(!document.getElementById("whatsapp-gtm-container")) {
+                 loadWidget();
+             }
+        }, 1500);
+
         getUrlParams();
     }
 
