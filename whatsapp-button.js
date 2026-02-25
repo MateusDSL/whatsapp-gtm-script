@@ -7,7 +7,7 @@
     const SUPABASE_URL = 'https://hdqrcmxiyanhqligzrpv.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhkcXJjbXhpeWFuaHFsaWd6cnB2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTExMzE0NTYsImV4cCI6MjA2NjcwNzQ1Nn0.efbHgndvp-SHT1TjbjjbXht76Y_fUcRxAPiqeGmCpZU';
     const CSS_URL = "https://mateusdsl.github.io/whatsapp-gtm-script/whatsapp-button.css";
-    const WHATSAPP_BASE_URL = "https://wa.link/51c6vn";
+    const WHATSAPP_BASE_URL = "https://wa.link/b9h5di";
     const SHOW_DELAY_MS = 500; // Pequeno delay para garantir renderização
     const EXPIRATION_TIME_IN_MINUTES = 10;
 
