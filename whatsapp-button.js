@@ -3,9 +3,9 @@
     console.log("WhatsApp Widget: Iniciando script..."); // Log de debug
 
     // --- CONFIGURAÇÕES ---
-    const GOOGLE_SCRIPT_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbywUPkVv8WK4BwyaK-u92b8IVCrpz-YgqHuGpkveMb23IMJ60rFsDmr5vJxi2cV96CbiQ/exec";
-    const SUPABASE_URL = 'https://hdqrcmxiyanhqligzrpv.supabase.co';
-    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhkcXJjbXhpeWFuaHFsaWd6cnB2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTExMzE0NTYsImV4cCI6MjA2NjcwNzQ1Nn0.efbHgndvp-SHT1TjbjjbXht76Y_fUcRxAPiqeGmCpZU';
+    const GOOGLE_SCRIPT_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzZGakgVUW5VgOlC2XO10w-6wqO7MOxs5FspkxeGG7E9cKoPAEn9i9-EVjyLXa9dXQ0qA/exec";
+    const SUPABASE_URL = 'https://fcstyfyljsokmpkpcrvu.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZjc3R5ZnlsanNva21wa3BjcnZ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkyODMyNDEsImV4cCI6MjA5NDg1OTI0MX0.ZGfsU228d4s6lpJz-7gBF88sHwiAOXus9sYVdnR-VtE';
     const CSS_URL = "https://mateusdsl.github.io/whatsapp-gtm-script/whatsapp-button.css";
     const WHATSAPP_BASE_URL = "https://wa.link/j9r99h";
     const SHOW_DELAY_MS = 500; // Pequeno delay para garantir renderização
