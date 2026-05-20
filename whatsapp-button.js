@@ -3,7 +3,7 @@
     console.log("WhatsApp Widget: Iniciando script..."); // Log de debug
 
     // --- CONFIGURAÇÕES ---
-    const GOOGLE_SCRIPT_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzZGakgVUW5VgOlC2XO10w-6wqO7MOxs5FspkxeGG7E9cKoPAEn9i9-EVjyLXa9dXQ0qA/exec";
+    const GOOGLE_SCRIPT_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzO3uweLCFDbiq3UILtdAmvVcp61ixcdriivs5c5pMbsEiMhL6UolAip8eMEBUChovDpA/exec";
     const SUPABASE_URL = 'https://fcstyfyljsokmpkpcrvu.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZjc3R5ZnlsanNva21wa3BjcnZ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkyODMyNDEsImV4cCI6MjA5NDg1OTI0MX0.ZGfsU228d4s6lpJz-7gBF88sHwiAOXus9sYVdnR-VtE';
     const CSS_URL = "https://mateusdsl.github.io/whatsapp-gtm-script/whatsapp-button.css";
